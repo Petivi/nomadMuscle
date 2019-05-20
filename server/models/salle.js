@@ -12,7 +12,7 @@ const SalleSchema = new Schema({
     disponibilite: { semaine: [
       {type: Jour, required: true}
     ],
-    mois: type: String,
+    mois: String,
     exception: [Date]
   },
   service: [
