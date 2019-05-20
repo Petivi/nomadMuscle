@@ -7,6 +7,6 @@ const JourSchema = new Schema({
     fin: Number
 })
 
-const Jour = mongoose.model('jour', JourSchema);
+// const Jour = mongoose.model('jour', JourSchema);
 
-module.exports = Jour;
+module.exports = JourSchema;

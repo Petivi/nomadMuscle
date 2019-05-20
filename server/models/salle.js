@@ -3,6 +3,8 @@ const Schema = mongoose.Schema;
 const Jour = require('./jour');
 
 const SalleSchema = new Schema({
+    idBailleur: { type: String },
+    nom: { type: String },
     adresse: { type: String, required: true },
     dimension: { type: Number, required: true},
     equipements: [
@@ -12,7 +14,7 @@ const SalleSchema = new Schema({
     disponibilite: { semaine: [
       {type: Jour, required: true}
     ],
-    mois: type: String,
+    mois: String,
     exception: [Date]
   },
   service: [

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const bodyParser = require('body-parser');
+const populate = require('./db/populate');
 var app = express();
 const PORT = 3000;
 
@@ -19,6 +20,7 @@ mongoose.connect(
     console.log('MongoDB connected');
     app.listen(PORT, () => {
         console.log(`Serveur node écoutant le port ${PORT}...`);
+        populate.insert();
     });
 });
 
