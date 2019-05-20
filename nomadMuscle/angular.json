@@ -132,5 +132,10 @@
       }
     }
   },
-  "defaultProject": "nomadMuscle"
+  "defaultProject": "nomadMuscle",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }

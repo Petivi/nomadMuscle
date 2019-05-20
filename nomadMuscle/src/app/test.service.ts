@@ -12,16 +12,13 @@ export class TestService {
         })
     }
     constructor(private _http: HttpClient) { }
+    
 
     get() {
         return this._http.get(this.urlServeur, this.httpOptions)
             .toPromise()
             .then(res => {
-              console.log(res);
-                // if (res['body']) {
-                //     let value = JSON.parse(res['body']);
-                //     return value;
-                // } else return true;
+              return res;
             });
     }
 }
