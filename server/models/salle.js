@@ -1,20 +1,36 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Jour = require('./jour');
 
-const FilmSchema = new Schema({
-    titre: { type: String, required: true },
-    realisateur: { type: String, required: true },
-    duree: { type: Number, required: true},
-    annee: { type: Number, required: true},
-    pays: { type: String, required: true },
-    vost: { type: Boolean, default: false },
-    acteurs: [
-      { type: String}
-    ]
+const SalleSchema = new Schema({
+    idBailleur: { type: String },
+    nom: { type: String },
+    adresse: { type: String, required: true },
+    dimension: { type: Number, required: true },
+    equipements: [
+        { type: String }
+    ],
+    utilisateurMax: { type: Number, required: true },
+    disponibilite: {
+        semaine: [
+            { type: Jour, required: true }
+        ],
+        mois: String,
+        exception: [Date]
+    },
+    service: [
+        { type: String }
+    ],
+    photos: [
+        { type: String }
+    ],
+    validationAuto: { type: Boolean },
+    tarifHoraire: { type: Number },
+    pourcentageRemboursement: { type: Number }
 })
 
 
-const Film = mongoose.model('film', FilmSchema);
+const Salle = mongoose.model('salle', SalleSchema);
 
 
-module.exports = Film;
+module.exports = Salle;
