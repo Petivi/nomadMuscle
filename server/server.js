@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 const bodyParser = require('body-parser');
 const populate = require('./db/populate');
+const salleRoutes = require('./routes/salle');
 var app = express();
 const PORT = 3000;
 
@@ -18,9 +19,11 @@ mongoose.connect(
     { useNewUrlParser: true }
 ).then(res => {
     console.log('MongoDB connected');
+
+    salleRoutes(app);
     app.listen(PORT, () => {
         console.log(`Serveur node écoutant le port ${PORT}...`);
-        populate.insert();
+        // populate.insert();
     });
 });
 
