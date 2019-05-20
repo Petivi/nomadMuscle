@@ -7,6 +7,7 @@ const BailleurSchema = new Schema({
     dateNaissance: { type: String, required: true },
     adresse: { type: String, required: true },
     pieceId: { type: String, required: true },
+    solde: { type: Number, required: true },
 })
 
 
