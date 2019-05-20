@@ -1,0 +1,67 @@
+Créer une app Full Stack
+
+Back: nodejs, mongodb
+Front: angular/react/vue
+
+** J'irai me muscler chez toi **
+
+La startup NomadMuscle vous charge de développer une app permettant à des particuliers
+de mettre en location leur(s) salle(s) de fitness personnelle(s) sur une base horaire.
+
+La plateforme devra permettre:
+
+Au bailleur
+ - d'enregistrer/éditer sa salle de sport
+ - de consulter le planning des réservation en cours
+ - de consulter l'historique des réservations
+ - d'annuler une réservation (confirmation/notification)
+
+Au locataire (utilisateur)
+- de rechercher une salle selon critères (zone géographique, calendrier, etc)
+N.B: utiliser l'API google maps pour localiser les salles
+- de visualiser les résultats de la recherche
+- de consulter les annonces
+- de réserver une salle pour une ou plusieurs dates/plages horaires. (confirmation/notification)
+- de consulter le planning des réservation en cours
+- de consulter l'historique de ses réservations
+- d'annuler une réservation (confirmation/notification)
+- de créditer son compte (confirmation/notification)
+
+Une annonce de salle sera publique que si la pièce d'identité du bailleur à été vérifiée
+Un utilisateur pourra réserver que lorsque sa pièce d'identité aura été vérifiée.
+
+La demande de réservation, selon le paramètrage du bailleur, pourra être automatiquement acceptée ou bien en attente d'acceptation (délai de 12h par exemple avant annulation)
+L'acception de la demande est notifiée par email à l'utilisateur. (Option: on lui propose d'ajouter la date dans son Google Calendar).
+L'acceptation débite le compte de utilisateur et crédite le compte bailleur.
+L'annulation faite par le bailleur, recrédite le compte utilisateur intégralement
+L'annulation faite par l'utilisateur, recrédite son compte du pourcentage prévu par le bailleur.
+
+Salle:
+- adresse
+- dimensions
+- équipements
+- nombre d'utilisateurs possibles en simultanée
+- calendrier/disponibilité
+- services inclus (ex: douche, rafraîchissement, place de parking, etc.)
+- photos (5 max)
+- acception automatique de la demande de réservation
+- tarif horaire
+- Pourcentage de remboursement en cas d'annulation
+
+Bailleur:
+- nom
+- prénom
+- date de naissance
+- adresse
+- pièce d'identité (scan)
+
+Locataire:
+- nom
+- prénom
+- adresse
+- date de naissance
+- pièce d'identité (scan)
+- cerfificat médical (scan)
+
+
+Vous avez 4 jours pour développer le prototype de cette application.
