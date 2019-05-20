@@ -10,10 +10,10 @@ module.exports = (app) => {
   // })
 
 
-  app.get('/salles', (req, res) => {
-    Salle.find({})
-    .then(salles => {
-      res.send(salles);
+  app.get('/locataires', (req, res) => {
+    Locataire.find({})
+    .then(locataires => {
+      res.send(locataires);
     })
   })
 
