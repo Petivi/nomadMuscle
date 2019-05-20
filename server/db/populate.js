@@ -98,6 +98,7 @@ const insert = () => {
       dateNaissance: '1982-04-10',
       mail: "michel@bertrand.fr",
       pieceId: "michelbertrand.jpg",
+      certificat: "certifMichel.png",
       solde: 1000
     },
     {
@@ -106,6 +107,7 @@ const insert = () => {
       dateNaissance: '1700-09-26',
       mail: "christine@boutin.fr",
       pieceId: "christineboutin.jpg",
+      certificat: "certifOui.png",
       solde: 101
     },
     {
@@ -114,6 +116,7 @@ const insert = () => {
       dateNaissance: '1500-12-25',
       mail: "ie@ie.fr",
       pieceId: "internetexplorer.jpg",
+      certificat: "certifIE.png",
       solde: 2500
     }
   ]
