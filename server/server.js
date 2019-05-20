@@ -24,7 +24,7 @@ mongoose.connect(
 
     salleRoutes(app);
     locataireRoutes(app);
-    bailleurRoutes(app);
+    bailleurRoutes (app);
     app.listen(PORT, () => {
         console.log(`Serveur node écoutant le port ${PORT}...`);
         // populate.insert();
