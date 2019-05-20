@@ -22,7 +22,7 @@ const SalleSchema = new Schema({
     { type: String }
   ],
   validationAuto:{ type: Boolean },
-  tarifHoraire: { type: Float },
+  tarifHoraire: { type: Number },
   pourcentageRemboursement: { type: Number }
 })
 
