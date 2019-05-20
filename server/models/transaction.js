@@ -6,7 +6,8 @@ const TransactionSchema = new Schema({
     idSalle: { type: String, required: true },
     idLocataire: { type: String, required: true },
     montant: { type: Number, required: true },
-    jour: { type: Jour, required: true }
+    jour: { type: Jour, required: true },
+    annulee: Boolean,
 })
 
 
