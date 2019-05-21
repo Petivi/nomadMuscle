@@ -2,6 +2,7 @@ const Transaction = require('./../models/transaction');
 const Locataire = require('./../models/locataire');
 const Bailleur = require('./../models/bailleur');
 const Salle = require('./../models/salle');
+const fonctions = require('../utils/fonction');
 
 module.exports = (app) => {
 
@@ -39,17 +40,16 @@ module.exports = (app) => {
                         res.status(500).send('le locataire n\'a pas assez d\'argent pour prendre cette salle');
                     } else {
                         if (salle.validationAuto) {
-                            Bailleur.find({ _id: salle.idBailleur }).then(bailleur => {
-                                bailleur = new Bailleur(bailleur[0]);
-                                bailleur.solde += transaction.montant;
-                                return bailleur.save()
-                            }).then(() => {
-                                return locataire.save()
+                            transaction.confirmee = true;
+                            fonctions.confirmationTransaction(transaction, salle, locataire).then(() => {
+                                res.sendStatus(201);
+                            }).catch(err => res.status(500).send(err));
+                        } else {
+                            transaction.confirmee = false;
+                            transaction.save().then(() => {
+                                res.sendStatus(201);
                             }).catch(err => res.status(500).send(err));
                         }
-                        transaction.save().then(() => {
-                            res.sendStatus(201);
-                        }).catch(err => res.status(500).send(err));
                     }
                 });
             }
