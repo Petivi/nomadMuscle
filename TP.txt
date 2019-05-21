@@ -1,7 +1,7 @@
 Créer une app Full Stack
 
 Back: nodejs, mongodb
-Front: angular/react/vue
+Front: angular/react/vue/js pur/jquery
 
 ** J'irai me muscler chez toi **
 
@@ -18,7 +18,7 @@ Au bailleur
 
 Au locataire (utilisateur)
 - de rechercher une salle selon critères (zone géographique, calendrier, etc)
-N.B: utiliser l'API google maps pour localiser les salles
+(Option: utiliser l'API google maps pour localiser les salles)
 - de visualiser les résultats de la recherche
 - de consulter les annonces
 - de réserver une salle pour une ou plusieurs dates/plages horaires. (confirmation/notification)
@@ -30,13 +30,16 @@ N.B: utiliser l'API google maps pour localiser les salles
 Une annonce de salle sera publique que si la pièce d'identité du bailleur à été vérifiée
 Un utilisateur pourra réserver que lorsque sa pièce d'identité aura été vérifiée.
 
-La demande de réservation, selon le paramètrage du bailleur, pourra être automatiquement acceptée ou bien en attente d'acceptation (délai de 12h par exemple avant annulation)
-L'acception de la demande est notifiée par email à l'utilisateur. (Option: on lui propose d'ajouter la date dans son Google Calendar).
+La demande de réservation, selon le paramètrage du bailleur, pourra être automatiquement acceptée
+ ou bien en attente d'acceptation (délai de 12h par exemple avant annulation)
+L'acception de la demande est notifiée par email à l'utilisateur.
+(Option: on lui propose d'ajouter la date dans son Google Calendar).
 L'acceptation débite le compte de utilisateur et crédite le compte bailleur.
 L'annulation faite par le bailleur, recrédite le compte utilisateur intégralement
 L'annulation faite par l'utilisateur, recrédite son compte du pourcentage prévu par le bailleur.
 
 Salle:
+- libelle (ex: "Salle très bien équipée centre ville de Tours")
 - adresse
 - dimensions
 - équipements
@@ -54,6 +57,7 @@ Bailleur:
 - date de naissance
 - adresse
 - pièce d'identité (scan)
+- credit
 
 Locataire:
 - nom
@@ -62,6 +66,11 @@ Locataire:
 - date de naissance
 - pièce d'identité (scan)
 - cerfificat médical (scan)
+- credit
 
 
-Vous avez 4 jours pour développer le prototype de cette application.
+Source d'inspiration: airbnb
+
+Vous avez 4 jours pour développer le prototype (maquette fonctionnelle) de cette application.
+Vous pouvez travailler à 1, 2 ou 3.
+Présentation vendredi 24 mai, matin.
