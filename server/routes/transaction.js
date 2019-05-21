@@ -57,28 +57,33 @@ module.exports = (app) => {
 
     app.patch('/transactions/:id', (req, res) => { //patch = remplacement partiel d'un element put remplacement global
         let locataire, bailleur, salle, valeurRemboursement, transaction;
-        Transaction.findOneAndUpdate(req.params.id, { annulee: true }).then(resTransaction => {
-            transaction = resTransaction;
-            return Salle.find({ _id: transaction.idSalle })
-        }).then(salles => {
-            salle = salles[0];
-            return Bailleur.find({ _id: salle.idBailleur })
-        }).then(bailleurs => {
-            bailleur = bailleurs[0];
-            valeurRemboursement = transaction.montant * (salle.pourcentageRemboursement / 100);
-            return Locataire.find({ _id: transaction.idLocataire });
-        }).then(locataires => {
-            locataire = locataires[0];
-            bailleur.solde -= valeurRemboursement;
-            bailleur = new Bailleur(bailleur);
-            locataire.solde += valeurRemboursement;
-            return bailleur.save();
-        }).then(() => {
-            locataire = new Locataire(locataire);
-            return locataire.save();
-        }).then(() => {
-            res.sendStatus(200);
-        }).catch(err => res.status(500).send(err));
+        Transaction.find({ _id: req.params.id }).then(transactions => {
+            transaction = transactions[0];
+            if (transaction.annulee) {
+                res.status(500).send('Cette transaction a déjà été annulée vous ne pouvez plus vous faire rembourser');
+            } else {
+                Salle.find({ _id: transaction.idSalle }).then(salles => {
+                    salle = salles[0];
+                    return Bailleur.find({ _id: salle.idBailleur })
+                }).then(bailleurs => {
+                    bailleur = bailleurs[0];
+                    valeurRemboursement = transaction.montant * (salle.pourcentageRemboursement / 100);
+                    return Locataire.find({ _id: transaction.idLocataire });
+                }).then(locataires => {
+                    locataire = locataires[0];
+                    bailleur.solde -= valeurRemboursement;
+                    bailleur = new Bailleur(bailleur);
+                    locataire.solde += valeurRemboursement;
+                    return bailleur.save();
+                }).then(() => {
+                    locataire = new Locataire(locataire);
+                    return locataire.save();
+                }).then(() => {
+                    res.sendStatus(200);
+                }).catch(err => res.status(500).send(err));
+
+            }
+        });
     });
 
 }
