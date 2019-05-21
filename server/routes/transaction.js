@@ -2,6 +2,7 @@ const Transaction = require('./../models/transaction');
 const Locataire = require('./../models/locataire');
 const Bailleur = require('./../models/bailleur');
 const Salle = require('./../models/salle');
+const fonctions = require('../utils/fonction');
 
 module.exports = (app) => {
 
@@ -20,7 +21,7 @@ module.exports = (app) => {
     });
 
     app.post('/transactions', (req, res) => {
-        let ttTransactionEmpietantes;
+        let ttTransactionEmpietantes, salle;
         var transaction = new Transaction(req.body);
         Transaction.find({ date: new Date(transaction.date), idSalle: transaction.idSalle }).then(transactions => {// on récupere les transactions du même jour dans la même salle
             ttTransactionEmpietantes = transactions.filter(t => transaction.fin > t.debut && transaction.debut < t.fin); // transactions qui empietent sur les horaires choisi
@@ -38,21 +39,21 @@ module.exports = (app) => {
                     if (locataire.solde < 0) {
                         res.status(500).send('le locataire n\'a pas assez d\'argent pour prendre cette salle');
                     } else {
-                        Bailleur.find({ _id: salle.idBailleur }).then(bailleur => {
-                            bailleur = new Bailleur(bailleur[0]);
-                            bailleur.solde += transaction.montant;
-                            return bailleur.save()
-                        }).then(() => {
-                            return locataire.save()
-                        }).then(() => {
-                            return transaction.save()
-                        }).then(() => {
-                            res.sendStatus(201);
-                        })
+                        if (salle.validationAuto) {
+                            transaction.confirmee = true;
+                            fonctions.confirmationTransaction(transaction, salle, locataire).then(() => {
+                                res.sendStatus(201);
+                            }).catch(err => res.status(500).send(err));
+                        } else {
+                            transaction.confirmee = false;
+                            transaction.save().then(() => {
+                                res.sendStatus(201);
+                            }).catch(err => res.status(500).send(err));
+                        }
                     }
                 });
             }
-        }).catch(err => res.status(500).send(err));
+        });
     });
 
     app.patch('/transactions/:id', (req, res) => { //patch = remplacement partiel d'un element put remplacement global
@@ -81,7 +82,6 @@ module.exports = (app) => {
                 }).then(() => {
                     res.sendStatus(200);
                 }).catch(err => res.status(500).send(err));
-
             }
         });
     });

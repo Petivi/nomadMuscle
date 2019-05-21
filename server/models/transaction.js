@@ -9,6 +9,7 @@ const TransactionSchema = new Schema({
     date: { type: Date, required: true },
     debut: { type: Number, required: true },
     fin: { type: Number, required: true },
+    confirmee: { type: Boolean, required: true },
     annulee: Boolean,
 });
 
