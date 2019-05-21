@@ -24,7 +24,8 @@ module.exports = (app) => {
     app.post('/transactions', authenticate, (req, res) => {
         if (req.body.type == "locataire") {
             let ttTransactionEmpietantes, salle;
-            var transaction = new Transaction(req.body);
+            let transaction = new Transaction(req.body.data);
+            transaction.idLocataire = req.body.user_id;
             Transaction.find({ date: new Date(transaction.date), idSalle: transaction.idSalle }).then(transactions => {// on récupere les transactions du même jour dans la même salle
                 ttTransactionEmpietantes = transactions.filter(t => transaction.fin > t.debut && transaction.debut < t.fin); // transactions qui empietent sur les horaires choisi
                 return Salle.find({ _id: transaction.idSalle })
@@ -57,11 +58,11 @@ module.exports = (app) => {
                 }
             });
         } else {
-            res.status(50).send('ERR_TYPE_INVALID');
+            res.status(500).send('ERR_TYPE_INVALID');
         }
     });
 
-    app.patch('/transactions/:id', (req, res) => { //patch = remplacement partiel d'un element put remplacement global
+    app.patch('/transactions/:id', authenticate, (req, res) => { //patch = remplacement partiel d'un element put remplacement global
         let locataire, bailleur, salle, valeurRemboursement, transaction;
         Transaction.find({ _id: req.params.id }).then(transactions => {
             transaction = transactions[0];
@@ -90,5 +91,4 @@ module.exports = (app) => {
             }
         });
     });
-
 }
