@@ -27,7 +27,7 @@ module.exports = (app) => {
             res.sendStatus(201);
           });
         }else {
-          res.send('ERR_TYPE_INVALID');
+          res.status(50).send('ERR_TYPE_INVALID');
         }
     });
 
