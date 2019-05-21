@@ -111,7 +111,6 @@ module.exports = (app) => {
           generateToken(user_id, typeUser)
           .then(token => {
             res.header('x-auth', token).send('PASSWORD_MATCH');
-            console.log(res.header());
           });
         }else {
           res.status(200).send('PASSWORD_NOT_MATCH');
