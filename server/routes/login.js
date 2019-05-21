@@ -82,24 +82,6 @@ module.exports = (app) => {
     }else {
       res.send('ERR_TYPE_UNKNOWN');
     }
-
-  // connection.query("SELECT * FROM users WHERE email LIKE '"+ email+"'", function (err, user, fields) {
-  //   if (err) throw err;
-  //   var user_hashed_password = user[0].password;
-  //   var user_id = user[0].id;
-  //   bcrypt.compare(password, user_hashed_password, (err, result) => {
-  //       if(result){
-  //         // res.status(200).send('PASSWORD_MATCH');
-  //
-  //         generateToken(user_id)
-  //         .then(token => {
-  //           res.header('x-auth', token).send('PASSWORD_MATCH');
-  //         });
-  //       }else {
-  //         res.status(200).send('PASSWORD_NOT_MATCH');
-  //       }
-  //   });
-  // });
 });
 
 
