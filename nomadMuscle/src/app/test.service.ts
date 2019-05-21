@@ -15,10 +15,10 @@ export class TestService {
     
 
     get() {
-        return this._http.get(this.urlServeur, this.httpOptions)
-            .toPromise()
-            .then(res => {
-              return res;
-            });
+        // return this._http.get(this.urlServeur, this.httpOptions)
+        //     .toPromise()
+        //     .then(res => {
+        //       return res;
+        //     });
     }
 }

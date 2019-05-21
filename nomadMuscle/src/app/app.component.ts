@@ -9,15 +9,14 @@ import { TestService } from './test.service';
 export class AppComponent implements OnInit{
   title = 'nomadMuscle';
   coucou: string = "couciu";
-
   constructor(private _testService: TestService){
 
   }
 
   ngOnInit(){
-    this._testService.get().then(res => {
-      console.log(res)
-    });
+    // this._testService.get().then(res => {
+    //   console.log(res)
+    // });
     // this.http.get('http:localhost:3000/films')
     // .subscribe(response => {
     //   console.log(response);
