@@ -22,13 +22,16 @@ export class AppService {
     }
     post(url: string, value: any) {
         value = JSON.stringify(value);
-        return this._http.post(this.urlServeur + url, value, this.httpOptions)
+        return this._http.post(url, value)
             .toPromise()
             .then(res => {
                 if (res['body']) {
                     let value = JSON.parse(res['body']);
                     return value;
                 } else return true;
+            })
+            .catch(err => {
+                console.log(err);
             });
     }
 }

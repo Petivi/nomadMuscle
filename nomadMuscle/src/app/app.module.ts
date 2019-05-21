@@ -11,13 +11,16 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterUSerComponent } from './register-user/register-user.component';
+import { RegisterRoomComponent } from './register-room/register-room.component';
 
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
   {path: '', component: HomeComponent},
   {path: 'connexion', component: LoginComponent},
-  {path: 'inscription', component:RegisterUSerComponent}
+  {path: 'inscription', component:RegisterUSerComponent},
+  {path: 'login', component: LoginComponent},
+  {path: 'enregistrer-salle', component: RegisterRoomComponent}
 ]
 
 @NgModule({
@@ -27,7 +30,8 @@ const appRoutes: Routes = [
     HeaderComponent,
     FooterComponent,
     LoginComponent,
-    RegisterUSerComponent
+    RegisterUSerComponent,
+    RegisterRoomComponent
   ],
   imports: [
     BrowserModule,

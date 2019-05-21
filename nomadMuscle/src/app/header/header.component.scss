@@ -23,13 +23,14 @@ header.header {
             .title {
                 margin-left: 20px;
                 text-transform: uppercase;
+                color:$grey-main;
             }
         }
         .menu {
             a {
                 position: relative;
                 text-decoration: none;
-                color: $blue-main;
+                color: $grey-main;
                 padding: 5px;
                 margin-left: 5px;
                 &:after {
@@ -39,7 +40,7 @@ header.header {
                     display: block;
                     width: 0;
                     height: 2px;
-                    background-color: $blue-main;
+                    background-color: $grey-main;
                     transition: width .3s;
                     left: 50%;
                     transform: translateX(-50%)

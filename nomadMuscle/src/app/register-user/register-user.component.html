@@ -1,10 +1,10 @@
 <div class="container">
   <form #registerform="ngForm" (ngSubmit)="inscription(registerform)">
-    <div class="form-group">
-      <label for="radio-bailleur">Bailleur</label>
-      <input type="radio" id="radio-bailleur" name="radio" value="bailleur">
-      <label for="radio-locataire">Locataire</label>
-      <input type="radio" id="radio-locataire" name="radio" value="locataire">
+    <div class="radio-group">
+      <input type="radio" id="bailleur" name="role" value="bailleur">      
+      <label for="bailleur">Bailleur</label>
+      <input type="radio" id="locataire" name="role" value="locataire">
+      <label for="locataire">Locataire</label>
     </div>
     <div class="form-group">
       <label for="lastname">Nom</label>
