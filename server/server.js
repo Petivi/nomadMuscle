@@ -5,6 +5,7 @@ const populate = require('./db/populate');
 const salleRoutes = require('./routes/salle');
 const locataireRoutes = require('./routes/locataire');
 const bailleurRoutes = require('./routes/bailleur');
+const loginRoutes = require('./routes/login');
 var app = express();
 const PORT = 3000;
 
@@ -24,7 +25,8 @@ mongoose.connect(
 
     salleRoutes(app);
     locataireRoutes(app);
-    bailleurRoutes (app);
+    bailleurRoutes(app);
+    loginRoutes(app);
     app.listen(PORT, () => {
         console.log(`Serveur node écoutant le port ${PORT}...`);
         // populate.insert();
