@@ -17,7 +17,7 @@ module.exports = (app) => {
   })
 
   app.post('/locataires', (req, res) => {
-    var locataire = new Locataire(req.body);
+    var locataire = new Locataire(req.body.data);
     locataire.save().then(result => {
       res.sendStatus(201);
     });

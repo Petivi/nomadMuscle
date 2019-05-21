@@ -1,4 +1,5 @@
 const Salle = require('./../models/salle');
+const {authenticate} = require('./../middleware/authenticate');
 
 module.exports = (app) => {
 
@@ -17,11 +18,17 @@ module.exports = (app) => {
             });
     });
 
-    app.post('/salles', (req, res) => {
-        var salle = new Salle(req.body);
-        salle.save().then(result => {
+    app.post('/salles', authenticate, (req, res) => {
+      console.log(req.body.type);
+        if(req.body.type == "bailleur"){
+          console.log('oui');
+          var salle = new Salle(req.body.data);
+          salle.save().then(result => {
             res.sendStatus(201);
-        });
+          });
+        }else {
+          res.send('ERR_TYPE_INVALID');
+        }
     });
 
 }
