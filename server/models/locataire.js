@@ -10,6 +10,8 @@ const LocataireSchema = new Schema({
     certificat: { type: String, required: true },
     solde: { type: Number, required: true },
     password: { type: String, required: true }
+    password: { type: String, required: true },
+    token: { type: String }
 })
 
 
