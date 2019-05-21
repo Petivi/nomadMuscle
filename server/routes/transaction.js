@@ -20,11 +20,17 @@ module.exports = (app) => {
     });
 
     app.post('/transactions', (req, res) => {
+        let ttTransactionEmpietantes;
         var transaction = new Transaction(req.body);
         Transaction.find({ date: new Date(transaction.date), idSalle: transaction.idSalle }).then(transactions => {// on récupere les transactions du même jour dans la même salle
-            let ttTransactionEmpietantes = transactions.filter(t => transaction.fin > t.debut && transaction.debut < t.fin);
-            if (ttTransactionEmpietantes.length > 0) {
-                res.status(500).send('Cette salle est déjà prise ce même jour à des horaires similaires');
+            ttTransactionEmpietantes = transactions.filter(t => transaction.fin > t.debut && transaction.debut < t.fin); // transactions qui empietent sur les horaires choisi
+            return Salle.find({ _id: transaction.idSalle })
+        }).then(salles => {
+            salle = new Salle(salles[0]);
+            if (ttTransactionEmpietantes.length >= salle.utilisateurMax) { // si il y a deja le nombre max de personne dans la salle
+                res.status(500).send('Cette salle est complète pour ce jour et ces horaires');
+            } else if (ttTransactionEmpietantes.find(t => t.idLocataire === transaction.idLocataire)) {
+                res.status(500).send('Vous avez déjà loué cette salle pour ce jour et ces horaires');
             } else {
                 return Locataire.find({ _id: transaction.idLocataire }).then(locataire => {
                     locataire = new Locataire(locataire[0]);
@@ -32,10 +38,7 @@ module.exports = (app) => {
                     if (locataire.solde < 0) {
                         res.status(500).send('le locataire n\'a pas assez d\'argent pour prendre cette salle');
                     } else {
-                        Salle.find({ _id: transaction.idSalle }).then(salle => {
-                            salle = new Salle(salle[0]);
-                            return Bailleur.find({ _id: salle.idBailleur })
-                        }).then(bailleur => {
+                        Bailleur.find({ _id: salle.idBailleur }).then(bailleur => {
                             bailleur = new Bailleur(bailleur[0]);
                             bailleur.solde += transaction.montant;
                             return bailleur.save()
