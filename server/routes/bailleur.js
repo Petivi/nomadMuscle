@@ -17,7 +17,7 @@ module.exports = (app) => {
     });
 
     app.post('/bailleurs', (req, res) => {
-        let bailleur = new Bailleur(req.body);
+        let bailleur = new Bailleur(req.body.data);
         bailleur.save().then(() => {
             res.sendStatus(201);
         });
