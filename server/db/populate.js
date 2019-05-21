@@ -71,7 +71,8 @@ const insert = () => {
       dateNaissance: '1944-06-06',
       mail: "bob@lennon.fr",
       pieceId: "boblennon.jpg",
-      solde: 5000
+      solde: 5000,
+      password: "123"
     },
     {
       nom: "Master",
@@ -79,7 +80,8 @@ const insert = () => {
       dateNaissance: '1900-01-01',
       mail: "yoda@master.fr",
       pieceId: "masterofpuppets.jpg",
-      solde: 10000
+      solde: 10000,
+      password: "123"
     },
     {
       nom: "Jack",
@@ -87,7 +89,8 @@ const insert = () => {
       dateNaissance: '1962-05-15',
       mail: "jack@sparrow.fr",
       pieceId: "jacksparrow.jpg",
-      solde: 250
+      solde: 250,
+      password: "123"
     }
   ]
 
@@ -99,7 +102,8 @@ const insert = () => {
       mail: "michel@bertrand.fr",
       pieceId: "michelbertrand.jpg",
       certificat: "certifMichel.png",
-      solde: 1000
+      solde: 1000,
+      password: "123"
     },
     {
       nom: "Christine",
@@ -108,7 +112,8 @@ const insert = () => {
       mail: "christine@boutin.fr",
       pieceId: "christineboutin.jpg",
       certificat: "certifOui.png",
-      solde: 101
+      solde: 101,
+      password: "123"
     },
     {
       nom: "Internet",
@@ -117,7 +122,8 @@ const insert = () => {
       mail: "ie@ie.fr",
       pieceId: "internetexplorer.jpg",
       certificat: "certifIE.png",
-      solde: 2500
+      solde: 2500,
+      password: "123"
     }
   ]
 

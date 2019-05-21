@@ -9,6 +9,7 @@ const LocataireSchema = new Schema({
     pieceId: { type: String, required: true },
     certificat: { type: String, required: true },
     solde: { type: Number, required: true },
+    password: { type: String, required: true }
 })
 
 
