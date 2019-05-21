@@ -22,6 +22,7 @@ var authenticate = (req, res, next) => {
                       typeUser = "bailleur";
                     }
                     req.body.type = typeUser;
+                    req.body.user_id = user_id
                     next();
                 });
           }

@@ -19,7 +19,6 @@ module.exports = (app) => {
     });
 
     app.post('/salles', authenticate, (req, res) => {
-      console.log(req.body.type);
         if(req.body.type == "bailleur"){
           console.log('oui');
           var salle = new Salle(req.body.data);
