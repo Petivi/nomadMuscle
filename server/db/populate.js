@@ -150,3 +150,20 @@ const insert = () => {
 module.exports = {
   insert
 }
+
+
+/*
+
+app.get('/films', (req, res) => {
+  // Film.find({}).then(films => {
+  //   res.send(films)
+  // })
+  Film.find({})
+  .populate({ path: 'seances', model: Seance })
+  .then(events => {
+    res.send(events)
+  })
+})
+
+
+*/
