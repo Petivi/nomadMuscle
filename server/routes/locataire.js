@@ -17,7 +17,9 @@ module.exports = (app) => {
   })
 
   app.post('/locataires', (req, res) => {
+    console.log(req.body)
     var locataire = new Locataire(req.body.data);
+    locataire.solde = 0;
     locataire.save().then(result => {
       res.sendStatus(201);
     });

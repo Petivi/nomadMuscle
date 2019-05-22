@@ -23,7 +23,6 @@ export class AppService {
 
     post(url: string, value: any) {
         console.log(value)
-        value = JSON.stringify(value);
         return this._http.post(this.urlServeur + url, value)
             .toPromise()
             .then(res => {

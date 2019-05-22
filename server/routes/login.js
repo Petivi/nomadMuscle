@@ -11,6 +11,7 @@ module.exports = (app) => {
 
   app.post('/inscription', cryptPassword, (req, res) =>{
     var typeUser = req.body.type;
+    req.body.data.solde = 0;
     var mail = req.body.data.mail;
     req.body.data.token = "";
     if(typeUser == "locataire"){
