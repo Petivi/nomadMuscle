@@ -23,7 +23,7 @@ module.exports = (app) => {
             res.sendStatus(201);
         })
         .catch(err => {
-            res.sendStatus(400).send("Ajout d'un bailleur impossible");
+            res.sendStatus(400).send({response: "Ajout d'un bailleur impossible"});
         });
     });
 

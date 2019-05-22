@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 const bodyParser = require('body-parser');
 const populate = require('./db/populate');
+const cors = require('cors');
 const salleRoutes = require('./routes/salle');
 const locataireRoutes = require('./routes/locataire');
 const bailleurRoutes = require('./routes/bailleur');
@@ -9,6 +10,7 @@ const transactionRoutes = require('./routes/transaction');
 const loginRoutes = require('./routes/login');
 
 var app = express();
+app.use(cors());
 const PORT = 3000;
 
 app.use((req, res, next) => {

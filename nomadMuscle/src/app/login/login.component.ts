@@ -25,9 +25,12 @@ export class LoginComponent implements OnInit {
             data: { mail: this.user.mail, password: this.user.password }
         }
         this._appService.post('login', value).then((res: any) => {
-            let date = new Date();
-            date.setHours(date.getHours() + 24);
-            document.cookie = 'tokenNomadMuscle=' + res.token + '; expires=' + date.toString() + '; path=/';
+            if(!res.error) {
+                let date = new Date();
+                date.setHours(date.getHours() + 24);
+                document.cookie = 'tokenNomadMuscle=' + res.token + '; expires=' + date.toString();
+                document.cookie = 'typeUserNomadMuscle=' + this.radio + '; expires=' + date.toString();
+            }
         });
     }
 
