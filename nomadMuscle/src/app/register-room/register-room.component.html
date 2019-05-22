@@ -39,65 +39,17 @@
     </div>
     <div class="form-group">
         <div class="row">
-            <div class="col">
+            <div class="col" *ngFor="let jour of salle.disponibilite.semaine">
                 <div class="row">
-                    <div class="col">Lundi</div>
+                    <div class="col">{{jour.titre}}</div>
                 </div>
                 <div class="row">
                     <div class="col">debut</div>
-                    <div class="col">select horaire (14h30)</div>
+                    <div class="col">{{jour.debut}}</div>
                 </div>
                 <div class="row">
                     <div class="col">fin</div>
-                    <div class="col">select horaire (18h00)</div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="row">
-                    <div class="col">mardi</div>
-                </div>
-                <div class="row">
-                    <div class="col">horaire mardi</div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="row">
-                    <div class="col">mercredi</div>
-                </div>
-                <div class="row">
-                    <div class="col">horaire mercredi</div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="row">
-                    <div class="col">jeudi</div>
-                </div>
-                <div class="row">
-                    <div class="col">horaire jeudi</div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="row">
-                    <div class="col">vendredi</div>
-                </div>
-                <div class="row">
-                    <div class="col">horaire vendredi</div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="row">
-                    <div class="col">samedi</div>
-                </div>
-                <div class="row">
-                    <div class="col">horaire samedi</div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="row">
-                    <div class="col">dimanche</div>
-                </div>
-                <div class="row">
-                    <div class="col">horaire dimanche</div>
+                    <div class="col">{{jour.fin}}</div>
                 </div>
             </div>
         </div>

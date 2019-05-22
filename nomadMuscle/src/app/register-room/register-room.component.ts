@@ -10,7 +10,19 @@ import { AppService } from '../app.service';
     styleUrls: ['./register-room.component.scss']
 })
 export class RegisterRoomComponent implements OnInit {
-    salle: Salle = new Salle({});
+    salle: Salle = new Salle({
+        disponibilite: {
+            semaine: [
+                { titre: 'Lundi', debut: 0, fin: 0 },
+                { titre: 'Mardi', debut: 0, fin: 0 },
+                { titre: 'Mercredi', debut: 0, fin: 0 },
+                { titre: 'Jeudi', debut: 0, fin: 0 },
+                { titre: 'Vendredi', debut: 0, fin: 0 },
+                { titre: 'Samedi', debut: 0, fin: 0 },
+                { titre: 'Dimanche', debut: 0, fin: 0 },
+            ]
+        }
+    });
     selectedDate: Date;
 
     constructor(private _appService: AppService) { }
@@ -38,7 +50,7 @@ export class RegisterRoomComponent implements OnInit {
     }
 
     addException() {
-        this.salle.disponibilite = this.salle.disponibilite ? this.salle.disponibilite : {semaine: [], exception: []};
+        this.salle.disponibilite = this.salle.disponibilite ? this.salle.disponibilite : { semaine: [], exception: [] };
         this.salle.disponibilite.exception.push(this.selectedDate);
     }
 }
