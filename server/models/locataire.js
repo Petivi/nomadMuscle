@@ -6,9 +6,9 @@ const LocataireSchema = new Schema({
     prenom: { type: String, required: true },
     dateNaissance: { type: Date, required: true },
     mail: { type: String, required: true },
-    pieceId: { type: String, required: true },
-    certificat: { type: String, required: true },
-    solde: { type: Number, required: true },
+    pieceId: String,
+    certificat: String,
+    solde: Number,
     password: { type: String, required: true },
     token: { type: String }
 })

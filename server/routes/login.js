@@ -11,6 +11,7 @@ module.exports = (app) => {
 
   app.post('/inscription', cryptPassword, (req, res) =>{
     var typeUser = req.body.type;
+    req.body.data.solde = 0;
     var mail = req.body.data.mail;
     req.body.data.token = "";
     if(typeUser == "locataire"){
@@ -74,7 +75,7 @@ module.exports = (app) => {
 
           generateToken(user_id, typeUser)
           .then(token => {
-            res.header('x-auth', token).send('PASSWORD_MATCH');
+            res.header('x-auth', token).send({response: 'PASSWORD_MATCH', token: token});
           });
         }else {
           res.status(200).send('PASSWORD_NOT_MATCH');

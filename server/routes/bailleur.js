@@ -18,8 +18,12 @@ module.exports = (app) => {
 
     app.post('/bailleurs', (req, res) => {
         let bailleur = new Bailleur(req.body.data);
-        bailleur.save().then(() => {
+        bailleur.save()
+        .then(() => {
             res.status(201).send({'response':'true'});
+        })
+        .catch(err => {
+            res.status(400).send({"response":"Ajout d'un bailleur impossible"});
         });
     });
 
