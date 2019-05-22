@@ -31,11 +31,10 @@ var authenticate = (req, res, next) => {
                     }
                 })
         } catch (e) {
-            res.status(401).send();
-            next();
+            res.status(401).send({error: true});
         }
     } else {
-        res.status(401).send();
+        res.status(401).send({error: true});
     }
 };
 

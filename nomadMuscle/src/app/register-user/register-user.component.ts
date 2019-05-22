@@ -23,7 +23,7 @@ export class RegisterUSerComponent implements OnInit {
             type: this.radio,
             data: this.user
         };
-        this._appService.post('inscription', value).then(res => {
+        this._appService.post('inscription', value).then((res: any) => {
             if (res.error) {
                 console.log('Erreur inscription : ' + res);
             } else {

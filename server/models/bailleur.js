@@ -6,10 +6,10 @@ const BailleurSchema = new Schema({
     prenom: { type: String, required: true },
     dateNaissance: { type: Date, required: true },
     mail: { type: String, required: true },
-    pieceId: { type: String, required: true },
-    solde: { type: Number, required: true },
+    pieceId: String,
+    solde: Number,
     password: { type: String, required: true },
-    token: { type: String }
+    token: String
 })
 
 
