@@ -40,6 +40,5 @@ export class RegisterRoomComponent implements OnInit {
     addException() {
         this.salle.disponibilite = this.salle.disponibilite ? this.salle.disponibilite : {semaine: [], exception: []};
         this.salle.disponibilite.exception.push(this.selectedDate);
-        console.log(this.salle)
     }
 }

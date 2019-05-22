@@ -11,7 +11,7 @@ import { User } from '../models/app.model';
     styleUrls: ['./register-user.component.scss']
 })
 export class RegisterUSerComponent implements OnInit {
-    user: User;
+    user: User = new User({});
     radio: string;
     
     constructor(private _appService: AppService, private _router: Router) { }

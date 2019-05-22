@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { AppService } from '../app.service';
 
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
     radio: string;
     user: User = new User({});
 
-    constructor(private _appService: AppService) { }
+    constructor(private _appService: AppService, private _router: Router) { }
 
     ngOnInit() {
     }
@@ -30,6 +31,9 @@ export class LoginComponent implements OnInit {
                 date.setHours(date.getHours() + 24);
                 document.cookie = 'tokenNomadMuscle=' + res.token + '; expires=' + date.toString();
                 document.cookie = 'typeUserNomadMuscle=' + this.radio + '; expires=' + date.toString();
+                this._router.navigate(['/']).then(res => {
+                    location.reload();
+                });
             }
         });
     }

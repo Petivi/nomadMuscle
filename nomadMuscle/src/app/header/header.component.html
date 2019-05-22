@@ -12,6 +12,7 @@
       <a *ngIf="!connected" routerLink="inscription">S'inscrire</a>
       <a *ngIf="!connected" routerLink="login">Connexion</a>
       <a *ngIf="connected" routerLink="future chemin vers mon compte">Mon compte</a>
+      <a *ngIf="connected" (click)="deconnexion()" routerLink="#">Deconnexion</a>
     </div>
   </nav>
 </header>
