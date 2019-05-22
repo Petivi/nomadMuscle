@@ -7,7 +7,7 @@ module.exports = (app) => {
     app.get('/salles', authenticate, (req, res) => {
         var tabFinal = [];
         if (req.body.type == 'bailleur') {
-            Salle.find({ idBailleur: req.body.user_id }, {"__v":0})
+            Salle.find({ idBailleur: req.body.user_id }, { "__v": 0 })
                 .then(salles => {
                     if (salles.length != 0) {
                         res.send({ response: salles });
@@ -16,18 +16,25 @@ module.exports = (app) => {
                     }
                 });
         } else if (req.body.type == 'locataire') {
-            Salle.find({}, {"__v":0})
+            Salle.find({}, { "__v": 0 })
                 .then(salles => {
                     if (salles.length != 0) {
-                      salles.forEach(function(s){
-                        Bailleur.find({ _id: s.idBailleur }, {"password":0, "token":0, "__v":0, "pieceId":0})
-                            .then(b => {
-                              s.idBailleur = b;
-                              console.log(b);
-                              tabFinal.push(s)
+                        let ttPromise = [];
+                        salles.forEach((s) => {
+                            ttPromise.push(Bailleur.find({ _id: s.idBailleur }, { "password": 0, "token": 0, "__v": 0, "pieceId": 0 }));
+                            /* Bailleur.find({ _id: s.idBailleur }, { "password": 0, "token": 0, "__v": 0, "pieceId": 0 })
+                                .then(b => {
+                                    s.idBailleur = b;
+                                    console.log(b);
+                                    tabFinal.push(s)
+                                }); */
+                        });
+                        Promise.all(ttPromise).then(result => {
+                            result.forEach(tab => {
+                                tabFinal.push(tab[0]);
                             });
-                      })
-                      res.send({ response: tabFinal });
+                            res.send({ response: tabFinal });
+                        })
                     } else {
                         res.send({ response: 'NO_ITEMS_FOUND' });
                     }
