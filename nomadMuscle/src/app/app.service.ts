@@ -9,6 +9,7 @@ export class AppService {
     httpOptionsGet = {
         headers: new HttpHeaders({
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+            'x-auth': (document.cookie.indexOf('tokenNomadMuscle') !== 1 ? this.getCookie('tokenNomadMuscle') : '')
         })
     }
 

@@ -21,7 +21,7 @@ module.exports = (app) => {
     var locataire = new Locataire(req.body.data);
     locataire.solde = 0;
     locataire.save().then(result => {
-      res.sendStatus(201);
+      res.status(201).send({response: 'created'});
     });
   });
 
