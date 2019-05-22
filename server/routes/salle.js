@@ -6,15 +6,14 @@ module.exports = (app) => {
     app.get('/salles', (req, res) => {
         Salle.find({})
             .then(salles => {
-                res.send(salles);
+                res.send({'response':salles});
             });
     });
 
     app.get('/salles/:id', (req, res) => {
         Salle.find({ _id: req.params.id })
             .then(salles => {
-                console.log(salles.length);
-                res.send(salles);
+                res.send({'reponse': salles});
             });
     });
 
@@ -22,12 +21,11 @@ module.exports = (app) => {
         if (req.body.type == "bailleur") {
             req.body.data.idBailleur = req.body.user_id;
             var salle = new Salle(req.body.data);
-            console.log(salle)
             salle.save().then(result => {
-                res.sendStatus(201);
+                res.status(201).send({response: 'created'});
             });
         } else {
-            res.status(50).send('ERR_TYPE_INVALID');
+            res.status(500).send({error: 'ERR_TYPE_INVALID'});
         }
     });
 

@@ -10,15 +10,15 @@ module.exports = (app) => {
     app.get('/transactions', (req, res) => {
         Transaction.find({})
             .then(transactions => {
-                res.send(transactions);
-            }).catch(err => res.status(500).send(err));
+                res.send({'response':transactions});
+            }).catch(err => res.status(500).send({'error':err}));
     });
 
     app.get('/transactions/:id', (req, res) => {
         Transaction.find({ _id: req.params.id })
             .then(transaction => {
-                res.send(transaction);
-            }).catch(err => res.status(500).send(err));
+                res.send({'response':transaction});
+            }).catch(err => res.status(500).send({'error':err}));
     });
 
     app.post('/transactions', authenticate, (req, res) => {
@@ -32,33 +32,33 @@ module.exports = (app) => {
             }).then(salles => {
                 salle = new Salle(salles[0]);
                 if (ttTransactionEmpietantes.length >= salle.utilisateurMax) { // si il y a deja le nombre max de personne dans la salle
-                    res.status(500).send('Cette salle est complète pour ce jour et ces horaires');
+                    res.status(500).send({'response':'Cette salle est complète pour ce jour et ces horaires'});
                 } else if (ttTransactionEmpietantes.find(t => t.idLocataire === transaction.idLocataire)) {
-                    res.status(500).send('Vous avez déjà loué cette salle pour ce jour et ces horaires');
+                    res.status(500).send({'response':'Vous avez déjà loué cette salle pour ce jour et ces horaires'});
                 } else {
                     return Locataire.find({ _id: transaction.idLocataire }).then(locataire => {
                         locataire = new Locataire(locataire[0]);
                         locataire.solde -= transaction.montant;
                         if (locataire.solde < 0) {
-                            res.status(500).send('le locataire n\'a pas assez d\'argent pour prendre cette salle');
+                            res.status(500).send({'response':'le locataire n\'a pas assez d\'argent pour prendre cette salle'});
                         } else {
                             if (salle.validationAuto) {
                                 transaction.confirmee = true;
                                 fonctions.confirmationTransaction(transaction, salle, locataire).then(() => {
-                                    res.sendStatus(201);
-                                }).catch(err => res.status(500).send(err));
+                                    res.status(201).send({'reponse':'true'});
+                                }).catch(err => res.status(500).send({'error':err}));
                             } else {
                                 transaction.confirmee = false;
                                 transaction.save().then(() => {
-                                    res.sendStatus(201);
-                                }).catch(err => res.status(500).send(err));
+                                    res.status(201).send({'response':'true'});
+                                }).catch(err => res.status(500).send({'error':err}));
                             }
                         }
                     });
                 }
             });
         } else {
-            res.status(500).send('ERR_TYPE_INVALID');
+            res.status(500).send({'error':'ERR_TYPE_INVALID'});
         }
     });
 
@@ -67,7 +67,7 @@ module.exports = (app) => {
         Transaction.find({ _id: req.params.id }).then(transactions => {
             transaction = transactions[0];
             if (transaction.annulee) {
-                res.status(500).send('Cette transaction a déjà été annulée vous ne pouvez plus vous faire rembourser');
+                res.status(500).send({'response':'Cette transaction a déjà été annulée vous ne pouvez plus vous faire rembourser'});
             } else {
                 Salle.find({ _id: transaction.idSalle }).then(salles => {
                     salle = salles[0];
@@ -86,8 +86,8 @@ module.exports = (app) => {
                     locataire = new Locataire(locataire);
                     return locataire.save();
                 }).then(() => {
-                    res.sendStatus(200);
-                }).catch(err => res.status(500).send(err));
+                    res.status(200).send({'response':'true'});
+                }).catch(err => res.status(500).send({'error':err}));
             }
         });
     });
