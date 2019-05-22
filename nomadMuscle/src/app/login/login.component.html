@@ -1,19 +1,17 @@
 <div class="container">
-<form action="">
     <div class="radio-group">
-        <input type="radio" name="role" value="bailleur" id="bailleur">
+        <input type="radio" name="role" value="bailleur" id="bailleur" [(ngModel)]="radio">
         <label for="bailleur">bailleur</label>
-        <input type="radio" name="role" value="locataire" id="locataire">
+        <input type="radio" name="role" value="locataire" id="locataire" [(ngModel)]="radio">
         <label for="locataire">Locataire</label>
     </div>
-    <div class="form-group"> 
-        <label for="email">Email</label>
-        <input type="text" id="email">
+    <div class="form-group">
+        <label for="mail">Email</label>
+        <input type="text" id="mail" [(ngModel)]="user.mail">
     </div>
     <div class="form-group">
         <label for="password">Mot de passe</label>
-        <input type="password" id="password">
+        <input type="password" id="password" [(ngModel)]="user.password">
     </div>
-    <button>Se connecter</button>
-</form>
+    <button (click)="connexion()">Se connecter</button>
 </div>
