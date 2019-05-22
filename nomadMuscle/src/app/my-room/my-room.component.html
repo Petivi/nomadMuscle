@@ -1,3 +1,34 @@
-<p>
-  my-room works!
-</p>
+<div class="container">
+	<div class="row mb-3" *ngFor="let salle of ttSalle">
+		<div class="col">
+			<div class="row">
+				<label class="col">Nom</label>
+				<div class="col">{{salle.nom}}</div>
+			</div>
+			<div class="row">
+				<label class="col">Adresse</label>
+				<div class="col">{{salle.adresse}}</div>
+			</div>
+			<div class="row">
+				<label class="col">Dimension</label>
+				<div class="col">{{salle.dimension}}</div>
+			</div>
+			<div class="row">
+				<label class="col">Remboursement</label>
+				<div class="col">{{salle.pourcentageRemboursement}} %</div>
+			</div>
+			<div class="row">
+				<label class="col">Service</label>
+				<div class="col" *ngFor="let service of salle.service">{{service}}</div>
+			</div>
+			<div class="row">
+				<label class="col">Tarif horaire</label>
+				<div class="col">{{salle.tarifHoraire}}</div>
+			</div>
+			<div class="row">
+				<label class="col">Nombre d'utilisateur maximum en simultané</label>
+				<div class="col">{{salle.utilisateurMax}}</div>
+			</div>
+		</div>
+	</div>
+</div>
