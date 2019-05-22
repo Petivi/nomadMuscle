@@ -1,11 +1,13 @@
 const Salle = require('./../models/salle');
+const Bailleur = require('./../models/bailleur');
 const { authenticate } = require('./../middleware/authenticate');
 
 module.exports = (app) => {
 
     app.get('/salles', authenticate, (req, res) => {
+        var tabFinal = [];
         if (req.body.type == 'bailleur') {
-            Salle.find({ idBailleur: req.body.user_id })
+            Salle.find({ idBailleur: req.body.user_id }, {"__v":0})
                 .then(salles => {
                     if (salles.length != 0) {
                         res.send({ response: salles });
@@ -14,10 +16,18 @@ module.exports = (app) => {
                     }
                 });
         } else if (req.body.type == 'locataire') {
-            Salle.find({})
+            Salle.find({}, {"__v":0})
                 .then(salles => {
                     if (salles.length != 0) {
-                        res.send({ response: salles });
+                      salles.forEach(function(s){
+                        Bailleur.find({ _id: s.idBailleur }, {"password":0, "token":0, "__v":0, "pieceId":0})
+                            .then(b => {
+                              s.idBailleur = b;
+                              console.log(b);
+                              tabFinal.push(s)
+                            });
+                      })
+                      res.send({ response: tabFinal });
                     } else {
                         res.send({ response: 'NO_ITEMS_FOUND' });
                     }
