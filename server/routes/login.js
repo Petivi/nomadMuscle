@@ -80,8 +80,6 @@ module.exports = (app) => {
     function password_verify(password, user_hashed_password, user_id, typeUser, res) {
         bcrypt.compare(password, user_hashed_password, (err, result) => {
             if (result) {
-                // res.status(200).send('PASSWORD_MATCH');
-
                 generateToken(user_id, typeUser)
                     .then(token => {
                         res.header('x-auth', token).send({ response: 'PASSWORD_MATCH', token: token });

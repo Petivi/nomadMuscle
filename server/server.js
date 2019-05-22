@@ -40,9 +40,3 @@ mongoose.connect(
         //populate.insert();
     });
 });
-
-
-
-app.get('/films', (req, res) => {
-    res.send({ oui: 'non' });
-})
