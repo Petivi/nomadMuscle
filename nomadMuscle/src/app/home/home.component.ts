@@ -11,9 +11,9 @@ export class HomeComponent implements OnInit {
   constructor(private _appService: AppService) { }
 
   ngOnInit() {
-    this._appService.get().then(res => {
+    /* this._appService.get().then(res => {
       console.log(res);
-    })
+    }) */
   }
 
 }

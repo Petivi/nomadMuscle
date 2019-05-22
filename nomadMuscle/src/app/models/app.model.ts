@@ -2,6 +2,6 @@ export class User {
     firstname: string;
     lastname: string;
     email: string;
-    dob: string;
+    dob: Date;
     password: string;
 }
