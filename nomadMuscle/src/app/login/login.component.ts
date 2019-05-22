@@ -12,7 +12,7 @@ import { User } from '../models/app.model';
 
 export class LoginComponent implements OnInit {
     radio: string;
-    user: User = new User;
+    user: User = new User({});
 
     constructor(private _appService: AppService) { }
 
