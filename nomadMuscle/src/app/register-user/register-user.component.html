@@ -1,0 +1,36 @@
+<div class="container">
+  <form #registerform="ngForm" (ngSubmit)="inscription(registerform)">
+    <div class="radio-group">
+      <input type="radio" id="bailleur" name="role" value="bailleur">      
+      <label for="bailleur">Bailleur</label>
+      <input type="radio" id="locataire" name="role" value="locataire">
+      <label for="locataire">Locataire</label>
+    </div>
+    <div class="form-group">
+      <label for="lastname">Nom</label>
+      <input type="text" id="lastname" name="lastname" [(ngModel)]="user.lastname">
+    </div>
+    {{user.lastname}} ~ {{ user.firstname}}
+    <div class="form-group">
+      <label for="firstname">Prénom</label>
+      <input type="text" id="firstname" name="firstname" [(ngModel)]="user.firstname">
+    </div>
+    <div class="form-group">
+      <label for="email">Adresse email</label>
+      <input type="email" id="email" name="email" [(ngModel)]="user.email">
+    </div>
+    <div class="form-group">
+      <label for="password">Mot de passe</label>
+      <input type="password" id="password" name="password" [(ngModel)]="user.password">
+    </div>
+    <!-- <div class="form-group">
+      <label for="identification">Pièce d'identité</label>
+      <input type="file" id="identification">
+    </div> -->
+    <div class="form-group">
+      <label for="dob">Date de naissance</label>   
+      <input type="date" id="dob" datetime="yyyy-MM-dd:mm:ss" name="dob" [(ngModel)]="user.dob">
+    </div>
+    <input type="submit" value="Envoyer">
+  </form>
+</div>
