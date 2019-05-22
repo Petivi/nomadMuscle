@@ -25,7 +25,7 @@ export class RegisterUSerComponent implements OnInit {
         } else {
             url = "locataires"
         }
-        this._appService.post(url, User).then(res => {
+        this._appService.post(url, this.user).then(res => {
             
             if (res.error) {
                 console.log('Erreur inscription : ' + res);
