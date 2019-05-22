@@ -4,6 +4,13 @@ export class User {
     mail: string;
     dateNaissance: Date;
     password: string;
+    constructor(info: any) {
+        for (let k in info) {
+            if (info.hasOwnProperty(k)) {
+                this[k] = info[k];
+            }
+        }
+    }
 }
 
 export class Salle {
@@ -19,15 +26,36 @@ export class Salle {
     validationAuto: boolean;
     tarifHoraire: number;
     pourcentageRemboursement: number;
+    constructor(info: any) {
+        for (let k in info) {
+            if (info.hasOwnProperty(k)) {
+                this[k] = info[k];
+            }
+        }
+    }
 }
 
 export class Disponibilite {
     semaine: Jour[];
     exception: Date[];
+    constructor(info: any) {
+        for (let k in info) {
+            if (info.hasOwnProperty(k)) {
+                this[k] = info[k];
+            }
+        }
+    }
 }
 
 export class Jour {
     titre: string;
     debut: number;
     fin: number;
+    constructor(info: any) {
+        for (let k in info) {
+            if (info.hasOwnProperty(k)) {
+                this[k] = info[k];
+            }
+        }
+    }
 }

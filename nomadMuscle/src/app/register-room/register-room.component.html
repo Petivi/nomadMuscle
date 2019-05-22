@@ -1,41 +1,116 @@
 <div class="container">
-  <h1>Proposer ma salle</h1>
-  <div class="form-group">
-    <label for="name">Nom de la salle</label>
-    <input type="text" id="name" [(ngModel)]="salle.nom">
-  </div>
-  <div class="form-group">
-    <label for="address">Adresse</label>
-    <input type="text" id="address" [(ngModel)]="salle.adresse">
-  </div>
-  <div class="form-group">
-    <label for="dimensions">Dimensions (m2)</label>
-    <input type="number" id="dimensions" [(ngModel)]="salle.dimension">
-  </div>
-  <div class="form-group">
-    <label for="maxusers">Nombre d'utilisateurs max</label>
-    <input type="number" id="maxusers" min="1" max="10" [(ngModel)]="salle.utilisateurMax">
-  </div>
-  <div class="form-group">
-    <label for="price">Tarif horaire</label>
-    <input type="number" id="price" min="1" max="100" [(ngModel)]="salle.tarifHoraire">
-  </div>
-  <div class="form-group">
-    <label for="refundRate">Pourcentage remboursement</label>
-    <input type="number" id="refundRate" min="0" max="100" [(ngModel)]="salle.pourcentageRemboursement">
-  </div>
-  <div class="form-group">
-    <label for="autovalidation">Validation automatique</label>
-    <input type="checkbox" id="autovalidation" [(ngModel)]="salle.validationAuto">
-  </div>
-  <div class="form-group">
-    <p>Equipement à disposition</p>
-    <label for="shower">Douche</label>
-    <input type="checkbox" id="shower" name="equipments" (click)="gestionEquipement($event, 'Douche')">
-    <label for="toilets">Toilettes</label>
-    <input type="checkbox" id="toilets" name="equipments" (click)="gestionEquipement($event, 'Toilettes')">
-    <label for="wifi">Wifi</label>
-    <input type="checkbox" id="wifi" name="equipments" (click)="gestionEquipement($event, 'Wifi')">
-  </div>
-  <button (click)="addSalle()">Envoyer</button>
+    <h1>Proposer ma salle</h1>
+    <div class="form-group">
+        <label for="name">Nom de la salle</label>
+        <input type="text" id="name" [(ngModel)]="salle.nom">
+    </div>
+    <div class="form-group">
+        <label for="address">Adresse</label>
+        <input type="text" id="address" [(ngModel)]="salle.adresse">
+    </div>
+    <div class="form-group">
+        <label for="dimensions">Dimensions (m2)</label>
+        <input type="number" id="dimensions" [(ngModel)]="salle.dimension">
+    </div>
+    <div class="form-group">
+        <label for="maxusers">Nombre d'utilisateurs max</label>
+        <input type="number" id="maxusers" min="1" max="10" [(ngModel)]="salle.utilisateurMax">
+    </div>
+    <div class="form-group">
+        <label for="price">Tarif horaire</label>
+        <input type="number" id="price" min="1" max="100" [(ngModel)]="salle.tarifHoraire">
+    </div>
+    <div class="form-group">
+        <label for="refundRate">Pourcentage remboursement</label>
+        <input type="number" id="refundRate" min="0" max="100" [(ngModel)]="salle.pourcentageRemboursement">
+    </div>
+    <div class="form-group">
+        <label for="autovalidation">Validation automatique</label>
+        <input type="checkbox" id="autovalidation" [(ngModel)]="salle.validationAuto">
+    </div>
+    <div class="form-group">
+        <p>Equipement à disposition</p>
+        <label for="shower">Douche</label>
+        <input type="checkbox" id="shower" name="equipments" (change)="gestionEquipement($event, 'Douche')">
+        <label for="toilets">Toilettes</label>
+        <input type="checkbox" id="toilets" name="equipments" (change)="gestionEquipement($event, 'Toilettes')">
+        <label for="wifi">Wifi</label>
+        <input type="checkbox" id="wifi" name="equipments" (change)="gestionEquipement($event, 'Wifi')">
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col">
+                <div class="row">
+                    <div class="col">Lundi</div>
+                </div>
+                <div class="row">
+                    <div class="col">debut</div>
+                    <div class="col">select horaire (14h30)</div>
+                </div>
+                <div class="row">
+                    <div class="col">fin</div>
+                    <div class="col">select horaire (18h00)</div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="col">mardi</div>
+                </div>
+                <div class="row">
+                    <div class="col">horaire mardi</div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="col">mercredi</div>
+                </div>
+                <div class="row">
+                    <div class="col">horaire mercredi</div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="col">jeudi</div>
+                </div>
+                <div class="row">
+                    <div class="col">horaire jeudi</div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="col">vendredi</div>
+                </div>
+                <div class="row">
+                    <div class="col">horaire vendredi</div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="col">samedi</div>
+                </div>
+                <div class="row">
+                    <div class="col">horaire samedi</div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="col">dimanche</div>
+                </div>
+                <div class="row">
+                    <div class="col">horaire dimanche</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col">
+                <input type="date" [(ngModel)]="selectedDate">
+            </div>
+            <div class="col">
+                <button (click)="addException()">Ajouter une exception</button>
+            </div>
+        </div>
+    </div>
+    <button (click)="addSalle()">Envoyer</button>
 </div>

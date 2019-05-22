@@ -10,7 +10,8 @@ import { AppService } from '../app.service';
     styleUrls: ['./register-room.component.scss']
 })
 export class RegisterRoomComponent implements OnInit {
-    salle: Salle = new Salle;
+    salle: Salle = new Salle({});
+    selectedDate: Date;
 
     constructor(private _appService: AppService) { }
 
@@ -24,4 +25,21 @@ export class RegisterRoomComponent implements OnInit {
         });
     }
 
+    gestionEquipement(event, type: string) {
+        this.salle.equipements = this.salle.equipements ? this.salle.equipements : [];
+        if (event.target.checked) {
+            this.salle.equipements.push(type);
+        } else {
+            let id = this.salle.equipements.findIndex(e => e === type);
+            if (id !== -1) {
+                this.salle.equipements.splice(id, 1);
+            }
+        }
+    }
+
+    addException() {
+        this.salle.disponibilite = this.salle.disponibilite ? this.salle.disponibilite : {semaine: [], exception: []};
+        this.salle.disponibilite.exception.push(this.selectedDate);
+        console.log(this.salle)
+    }
 }
