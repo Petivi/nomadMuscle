@@ -25,7 +25,7 @@ export class RegisterUSerComponent implements OnInit {
         };
         this._appService.post('inscription', value).then((res: any) => {
             if (res.error) {
-                console.log('Erreur inscription : ' + res);
+                console.log('Erreur inscription : ' + res.error);
             } else {
                 console.log(res);
                 this._router

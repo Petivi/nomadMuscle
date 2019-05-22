@@ -14,6 +14,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterUSerComponent } from './register-user/register-user.component';
 import { RegisterRoomComponent } from './register-room/register-room.component';
 import { MyRoomComponent } from './my-room/my-room.component';
+import { FindRoomComponent } from './find-room/find-room.component';
 
 
 const appRoutes: Routes = [
@@ -24,6 +25,7 @@ const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'enregistrer-salle', component: RegisterRoomComponent},
   {path: 'mes-salles', component: MyRoomComponent},
+  {path: 'trouver-une-salle', component: FindRoomComponent},
 ]
 
 @NgModule({
@@ -35,7 +37,8 @@ const appRoutes: Routes = [
     LoginComponent,
     RegisterUSerComponent,
     RegisterRoomComponent,
-    MyRoomComponent
+    MyRoomComponent,
+    FindRoomComponent
   ],
   imports: [
     BrowserModule,

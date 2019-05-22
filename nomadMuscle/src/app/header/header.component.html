@@ -8,7 +8,7 @@
     <div class="menu">
       <a *ngIf="typeUser === 'bailleur'" routerLink="enregistrer-salle">Proposer ma salle</a>
       <a *ngIf="typeUser === 'bailleur'" routerLink="mes-salles">Mes salles</a>
-      <a *ngIf="typeUser === 'locataire'" routerLink="">Trouver une salle</a>
+      <a *ngIf="typeUser === 'locataire'" routerLink="trouver-une-salle">Trouver une salle</a>
       <a *ngIf="!connected" routerLink="inscription">S'inscrire</a>
       <a *ngIf="!connected" routerLink="login">Connexion</a>
       <a *ngIf="connected" routerLink="future chemin vers mon compte">Mon compte</a>
