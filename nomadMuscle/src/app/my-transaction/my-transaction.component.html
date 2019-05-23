@@ -25,16 +25,16 @@
 					Cette location à été annulée
 				</div>
 				<div class="col" *ngIf="transaction.confirmee && !transaction.annulee">
-					Cette location à bien été confirméé
+					Cette location à bien été confirmée
 				</div>
-				<div class="col" *ngIf="!transaction.confirmee">
-					Cette location n'a pas encore été confirméé
+				<div class="col" *ngIf="!transaction.confirmee && !transaction.annulee">
+					Cette location n'a pas encore été confirmée
 				</div>
-				<div class="col" *ngIf="typeUtilisateur === 'bailleur' && !transaction.annulee">
-					<button (click)="confirmation()">confimer la location</button>
+				<div class="col" *ngIf="typeUtilisateur === 'bailleur' && !transaction.annulee && !transaction.confirmee">
+					<button (click)="confAnnul(transaction)">confimer la location</button>
 				</div>
 				<div class="col" *ngIf="typeUtilisateur === 'locataire' && !transaction.annulee">
-					<button (click)="annulation()">annuler la location</button>
+					<button (click)="confAnnul(transaction)">annuler la location</button>
 				</div>
 			</div>
 		</div>

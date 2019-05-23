@@ -26,7 +26,8 @@ export class MyAccountComponent implements OnInit {
 	crediter() {
 		if (this.credit > 0) {
 			this.user.solde += this.credit;
-			this._appService.patch('locataires/solde', { data: { solde: this.user.solde } });
+			this._appService.patch('locataires/solde', { data: { solde: this.credit } });
+			this.credit = 0;
 		}
 	}
 }

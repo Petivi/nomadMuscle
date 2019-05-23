@@ -27,4 +27,9 @@ export class MyTransactionComponent implements OnInit {
 		});
 	}
 
+	confAnnul(transaction) {
+		console.log(transaction);
+		this._appService.patch('transactions/' + transaction._id, {});
+	}
+
 }

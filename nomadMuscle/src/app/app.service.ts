@@ -68,9 +68,9 @@ export class AppService {
     getCustomHour(hour) {
         if (hour % 2 == 1) { // avec demie heure
             var newHour = (hour - 1) / 2;
-            return newHour.toString().padStart(2, "0") + ":30";
+            return newHour.toString().padStart(2, "0") + "h30";
         } else { // sans demie heure
-            return (hour / 2).toString().padStart(2, "0") + ":00";
+            return (hour / 2).toString().padStart(2, "0") + "h00";
         }
     }
 }

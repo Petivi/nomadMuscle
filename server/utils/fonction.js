@@ -7,23 +7,23 @@ const security = require('./../config/security');
 
 
 module.exports.confirmationTransaction = (transaction, salle = null, locataire = null) => {
+	let bailleur;
 	return new Promise((resolve, reject) => {
-		console.log('oui')
 		getSalleLocataire(transaction, salle, locataire).then(resultat => {
-			console.log(resultat)
 			salle = resultat.salle;
 			locataire = resultat.locataire;
 			return Bailleur.find({ _id: salle.idBailleur });
-		}).then(bailleur => {
-			bailleur = new Bailleur(bailleur[0]);
+		}).then(resBailleur => {
+			bailleur = resBailleur[0];
 			bailleur.solde += transaction.montant;
 			return bailleur.save();
 		}).then(() => {
+			locataire.solde -= transaction.montant;
 			return locataire.save();
 		}).then(() => {
 			return transaction.save();
 		}).then(() => {
-			resolve(true)
+			resolve({ bailleur: bailleur, locataire: locataire })
 		}).catch(err => reject(err));
 	});
 }
@@ -41,10 +41,10 @@ getSalleLocataire = (transaction, salle = null, locataire = null) => {
 		if (ttPromise.length > 0) {
 			Promise.all(ttPromise).then(res => {
 				if (salle) result.salle = salle;
-				else result.salle = res[0];
+				else result.salle = res[0][0];
 				if (locataire) result.locataire = locataire;
-				else if (salle) result.locataire = res[0];
-				else result.locataire = res[1];
+				else if (salle) result.locataire = res[0][0];
+				else result.locataire = res[1][0];
 				resolve(result)
 			});
 		} else {
@@ -84,10 +84,8 @@ async function sendingMail(mail, nom, prenom, subject, content) {
 		};
 
 		transporter.sendMail(mailOptions, function (err, info) {
-			if (err)
-				console.log(err)
-			else
-				console.log(info);
+			if (err) console.log(err);
+			
 		});
 	});
 }
@@ -95,8 +93,8 @@ async function sendingMail(mail, nom, prenom, subject, content) {
 module.exports.getCustomHour = (hour) => {
 	if (hour % 2 == 1) { // avec demie heure
 		var newHour = (hour - 1) / 2;
-		return newHour.toString().padStart(2, "0") + ":30";
+		return newHour.toString().padStart(2, "0") + "h30";
 	} else { // sans demie heure
-		return (hour / 2).toString().padStart(2, "0") + ":00";
+		return (hour / 2).toString().padStart(2, "0") + "h00";
 	}
 }
