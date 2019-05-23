@@ -4,6 +4,7 @@ const Bailleur = require('./../models/bailleur');
 const Salle = require('./../models/salle');
 const fonctions = require('../utils/fonction');
 const { authenticate } = require('./../middleware/authenticate');
+const moment = require('moment');
 
 module.exports = (app) => {
 
@@ -21,7 +22,7 @@ module.exports = (app) => {
                         ttPromise.push(Transaction.find({ idSalle: s._id }, { "__v": 0 }));
                     });
                     Promise.all(ttPromise).then(result => {
-                        res.send({ response: result });
+                        res.send({ response: result[0] });
                     });
                 }).catch(err => res.status(500).send({ error: err }));
 
@@ -82,40 +83,64 @@ module.exports = (app) => {
         let locataire, bailleur, salle, valeurRemboursement, transaction;
         Transaction.find({ _id: req.params.id }).then(transactions => {
             transaction = transactions[0];
-            if (transaction.annulee) {
-                res.status(500).send({ response: 'Cette transaction a déjà été annulée vous ne pouvez plus vous faire rembourser' });
-            } else {
-                Salle.find({ _id: transaction.idSalle }).then(salles => {
-                    salle = salles[0];
-                    return Bailleur.find({ _id: salle.idBailleur })
-                }).then(bailleurs => {
-                    bailleur = bailleurs[0];
-                    valeurRemboursement = transaction.montant * (salle.pourcentageRemboursement / 100);
-                    return Locataire.find({ _id: transaction.idLocataire });
-                }).then(locataires => {
-                    locataire = locataires[0];
-                    bailleur.solde -= valeurRemboursement;
-                    bailleur = new Bailleur(bailleur);
-                    locataire.solde += valeurRemboursement;
-                    return bailleur.save();
-                }).then(() => {
-                    locataire = new Locataire(locataire);
-                    return locataire.save();
-                }).then(() => {
-                    /* MAIL */
-                    var heure_debut = fonctions.getCustomHour(transaction.debut);
-                    var heure_fin = fonctions.getCustomHour(transaction.fin);
-                    let bailleur_mail_subject = "Notification d'annulation de réservation";
-                    let bailleur_mail_content = `La réservation du ` + transaction.date + ` de : ` + heure_debut + ` à ` + heure_fin + `<br>
-                    Le locataire a été remboursé de `+ valeurRemboursement + ` €`;
-                    let locataire_mail_subject = "Confirmation d'annulation de réservation";
-                    let locataire_mail_content = `La réservation du ` + transaction.date + ` de : ` + heure_debut + ` à ` + heure_fin + `<br>
-                    Votre solde a été recrédité de `+ valeurRemboursement + ` €`;
+            if (req.body.type === 'bailleur' && !transaction.annulee && !transaction.confirmee) { //si bailleur on confirme
+                fonctions.confirmationTransaction(transaction).then(resultat => {
+                    let locataire = resultat.locataire;
+                    let bailleur = resultat.bailleur;
+                    let heure_debut = fonctions.getCustomHour(transaction.debut);
+                    let heure_fin = fonctions.getCustomHour(transaction.fin);
+                    let bailleur_mail_subject = "Confirmation de réservation";
+                    let bailleur_mail_content = `La réservation du ` + moment(transaction.date).format('DD/MM/YYYY') + ` de : ` + heure_debut + ` à ` + heure_fin + `<br>
+                        a bien été confirmé votre solde a été crédité de `+ transaction.montant + ` €`;
+                    let locataire_mail_subject = "Notification de confirmation de réservation";
+                    let locataire_mail_content = `La réservation du ` + moment(transaction.date).format('DD/MM/YYYY') + ` de : ` + heure_debut + ` à ` + heure_fin + `<br>
+                        a bien été confirmer par le bailleur votre compte a été débité de `+ transaction.montant + ` €`;
                     fonctions.sendCustomMail(bailleur.mail, bailleur.nom, bailleur.prenom, bailleur_mail_subject, bailleur_mail_content);
                     fonctions.sendCustomMail(locataire.mail, locataire.nom, locataire.prenom, locataire_mail_subject, locataire_mail_content);
-                    /* FIN MAIL */
-                    res.status(200).send({ response: 'true' });
+                    transaction.confirmee = true;
+                    return transaction.save();
+                }).then(() => {
+                    res.send({ response: true });
                 }).catch(err => res.status(500).send({ error: err }));
+            } else if (req.body.type === 'locataire') { //si locataire on annule
+                if (transaction.annulee) {
+                    res.status(500).send({ response: 'Cette transaction a déjà été annulée vous ne pouvez plus vous faire rembourser' });
+                } else {
+                    Salle.find({ _id: transaction.idSalle }).then(salles => {
+                        salle = salles[0];
+                        return Bailleur.find({ _id: salle.idBailleur })
+                    }).then(bailleurs => {
+                        bailleur = bailleurs[0];
+                        valeurRemboursement = transaction.montant * (salle.pourcentageRemboursement / 100);
+                        return Locataire.find({ _id: transaction.idLocataire });
+                    }).then(locataires => {
+                        locataire = locataires[0];
+                        bailleur.solde -= valeurRemboursement;
+                        locataire.solde += valeurRemboursement;
+                        return bailleur.save();
+                    }).then(() => {
+                        return locataire.save();
+                    }).then(() => {
+                        transaction.annulee = true;
+                        return transaction.save();
+                    }).then(() => {
+                        /* MAIL */
+                        var heure_debut = fonctions.getCustomHour(transaction.debut);
+                        var heure_fin = fonctions.getCustomHour(transaction.fin);
+                        let bailleur_mail_subject = "Notification d'annulation de réservation";
+                        let bailleur_mail_content = `La réservation du ` + transaction.date + ` de : ` + heure_debut + ` à ` + heure_fin + `<br>
+                        Le locataire a été remboursé de `+ valeurRemboursement + ` €`;
+                        let locataire_mail_subject = "Confirmation d'annulation de réservation";
+                        let locataire_mail_content = `La réservation du ` + transaction.date + ` de : ` + heure_debut + ` à ` + heure_fin + `<br>
+                        Votre solde a été recrédité de `+ valeurRemboursement + ` €`;
+                        fonctions.sendCustomMail(bailleur.mail, bailleur.nom, bailleur.prenom, bailleur_mail_subject, bailleur_mail_content);
+                        fonctions.sendCustomMail(locataire.mail, locataire.nom, locataire.prenom, locataire_mail_subject, locataire_mail_content);
+                        /* FIN MAIL */
+                        res.status(200).send({ response: 'true' });
+                    }).catch(err => res.status(500).send({ error: err }));
+                }
+            } else {
+                res.status(500).send({ error: 'ERR_INTERN' });
             }
         });
     });

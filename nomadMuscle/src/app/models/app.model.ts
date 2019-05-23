@@ -4,6 +4,7 @@ export class User {
     mail: string;
     dateNaissance: Date;
     password: string;
+    solde: number;
     constructor(info: any) {
         for (let k in info) {
             if (info.hasOwnProperty(k)) {
@@ -65,8 +66,11 @@ export class Transaction {
     idLocataire: number;
     montant: number;
     date: Date;
+    dateString: string;
     debut: number;
+    heureDebut: String;
     fin: number;
+    heureFin: String;
     confirmee: boolean;
     annulee: boolean;
     constructor(info: any) {

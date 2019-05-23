@@ -7,6 +7,7 @@ header.header {
     box-shadow: 0 4px 12px 0 rgba(0,0,0,.05);
     padding: 10px;
     box-sizing: border-box;
+    background-color: $blue-main;
     .nav {
         display: flex;
         justify-content: space-between;
@@ -23,14 +24,14 @@ header.header {
             .title {
                 margin-left: 20px;
                 text-transform: uppercase;
-                color:$grey-main;
+                color:#FFF;
             }
         }
         .menu {
             a {
                 position: relative;
                 text-decoration: none;
-                color: $grey-main;
+                color: #FFF;
                 padding: 5px;
                 margin-left: 5px;
                 &:after {
@@ -40,7 +41,7 @@ header.header {
                     display: block;
                     width: 0;
                     height: 2px;
-                    background-color: $grey-main;
+                    background-color: #FFF;
                     transition: width .3s;
                     left: 50%;
                     transform: translateX(-50%)

@@ -37,7 +37,7 @@
                 <label class="col">Disponibilité pendant le mois de {{salle.salle.disponibilite.mois}}</label>
                 <ng-container *ngFor="let jour of salle.salle.disponibilite.semaine">
                     <div class="col" *ngIf="jour.debut > 0 || jour.fin > 0">
-                        {{jour.titre + ' de ' + jour.debut + 'h a ' + jour.fin + 'h'}}
+                        {{jour.titre + ' de ' + jour.heureDebut + 'h a ' + jour.heureFin + 'h'}}
                     </div>
                 </ng-container>
             </div>

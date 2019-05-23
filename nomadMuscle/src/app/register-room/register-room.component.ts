@@ -20,9 +20,24 @@ export class RegisterRoomComponent implements OnInit {
                 { titre: 'Vendredi', debut: 0, fin: 0 },
                 { titre: 'Samedi', debut: 0, fin: 0 },
                 { titre: 'Dimanche', debut: 0, fin: 0 },
-            ]
-        }
+            ],
+            exception: []
+        },
     });
+    ttMois: any[] = [
+        { libelle: 'janvier', value: 1, max: 31 },
+        { libelle: 'fevrier', value: 2, max: 28 },
+        { libelle: 'mars', value: 3, max: 31 },
+        { libelle: 'avril', value: 4, max: 30 },
+        { libelle: 'mai', value: 5, max: 31 },
+        { libelle: 'juin', value: 6, max: 30 },
+        { libelle: 'juillet', value: 7, max: 31 },
+        { libelle: 'aout', value: 8, max: 31 },
+        { libelle: 'septembre', value: 9, max: 30 },
+        { libelle: 'octobre', value: 10, max: 31 },
+        { libelle: 'novembre', value: 11, max: 30 },
+        { libelle: 'decembre', value: 12, max: 31 },
+    ]
     selectedDate: Date;
     times: any[] = [];
 
@@ -38,7 +53,7 @@ export class RegisterRoomComponent implements OnInit {
         for (var i = 0; tt < 24 * 60; i++) {
             var hh = Math.floor(tt / 60); // getting hours of day in 0-24 format
             var mm = (tt % 60); // getting minutes of the hour in 0-55 format
-            this.times[i] = {display: ("0" + (hh)).slice(-2) + ':' + ("0" + mm).slice(-2), value: i}; // pushing data in array in [00:00 - 12:00 AM/PM format]
+            this.times[i] = { display: ("0" + (hh)).slice(-2) + ':' + ("0" + mm).slice(-2), value: i }; // pushing data in array in [00:00 - 12:00 AM/PM format]
             tt = tt + x;
         }
     }
