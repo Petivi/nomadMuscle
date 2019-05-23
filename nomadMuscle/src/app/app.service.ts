@@ -80,6 +80,6 @@ export class AppService {
     
         formData.append('image', image);
     
-        return this._http.post(this.urlServeur + 'bailleurs/pieceId', formData);
+        return this._http.post(this.urlServeur + 'bailleurs/pieceId', formData, this.httpOptionsPost);
       }
 }

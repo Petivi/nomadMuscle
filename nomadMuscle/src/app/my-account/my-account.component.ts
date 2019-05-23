@@ -38,10 +38,9 @@ export class MyAccountComponent implements OnInit {
 		this.selectedFile.src = '';
 	  }
 	
-	  test(imageInput: any) {
+	  addImage(imageInput: any) {
 		const file: File = imageInput.files[0];
-		const reader = new FileReader();
-	
+		const reader = new FileReader();	
 		reader.addEventListener('load', (event: any) => {
 	
 		  this.selectedFile = new ImageSnippet(event.target.result, file);

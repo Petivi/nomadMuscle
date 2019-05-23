@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
         }
         this._appService.post('login', value).then((res: any) => {
             if(!res.error) {
+                console.log(res)
                 let date = new Date();
                 date.setHours(date.getHours() + 24);
                 document.cookie = 'tokenNomadMuscle=' + res.token + '; expires=' + date.toString();

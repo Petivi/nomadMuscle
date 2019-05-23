@@ -11,6 +11,8 @@ const loginRoutes = require('./routes/login');
 
 var app = express();
 app.use(cors());
+console.log(__dirname)
+app.use('/static', express.static(__dirname + '/public'));
 const PORT = 3000;
 
 app.use((req, res, next) => {

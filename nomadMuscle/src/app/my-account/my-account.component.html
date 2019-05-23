@@ -30,7 +30,15 @@
 				</ng-container>
 			</div>
 			<div class="row" *ngIf="typeUser === 'bailleur'">
-				<input #imageInput type="file" accept="image/*" (change)="test(imageInput)">
+				<div class="col">
+					Pièce d'identité
+				</div>
+				<div class="col" *ngIf="!user.pieceId">
+					<input #imageInput type="file" accept="image/*" (change)="addImage(imageInput)">
+				</div>
+				<div class="col" *ngIf="user.pieceId">
+					<img src="{{'http://localhost:3000/public/pieceId/' + user.pieceId}}" alt="">
+				</div>
 			</div>
 		</div>
 	</div>
