@@ -31,18 +31,22 @@ module.exports = (app) => {
 
     app.post('/bailleurs/pieceId', authenticate, (req, res) => {
 
-      var busboy = new Busboy({headers: req.headers});
+      if(req.body.user_id){
+        var busboy = new Busboy({headers: req.headers});
 
-      busboy.on('file', function(fieldname, file, filename, encoding) {
-        var saveTo = __dirname + '/public/pieceId/' + req.body.user_id;
-        file.pipe(fs.createWriteStream(saveTo));
-      });
+        busboy.on('file', function(fieldname, file, filename, encoding) {
+          var saveTo = __dirname + '/public/pieceId/' + req.body.user_id;
+          file.pipe(fs.createWriteStream(saveTo));
+        });
 
-      busboy.on('finish', function(){
-        res.sendStatus(200);
-      })
+        busboy.on('finish', function(){
+          res.sendStatus(200);
+        })
 
-      req.pipe(busboy);
+        req.pipe(busboy);
+      }else {
+        res.send({error: "ERR_NO_USER_ID"});
+      }
     })
 
 }
