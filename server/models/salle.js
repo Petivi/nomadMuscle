@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const Jour = require('./jour');
 
 const SalleSchema = new Schema({
-    idBailleur: { type: String, required: true },
+    idBailleur: { type: mongoose.Schema.Types.ObjectId, ref: 'Bailleur', required: true },
     nom: { type: String, required: true },
     adresse: { type: String, required: true },
     dimension: { type: Number, required: true },

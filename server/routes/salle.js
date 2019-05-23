@@ -1,11 +1,13 @@
 const Salle = require('./../models/salle');
+const Bailleur = require('./../models/bailleur');
 const { authenticate } = require('./../middleware/authenticate');
 
 module.exports = (app) => {
 
     app.get('/salles', authenticate, (req, res) => {
+        var tabFinal = [];
         if (req.body.type == 'bailleur') {
-            Salle.find({ idBailleur: req.body.user_id })
+            Salle.find({ idBailleur: req.body.user_id }, { "__v": 0 })
                 .then(salles => {
                     if (salles.length != 0) {
                         res.send({ response: salles });
@@ -14,10 +16,23 @@ module.exports = (app) => {
                     }
                 });
         } else if (req.body.type == 'locataire') {
-            Salle.find({})
+            Salle.find({}, { "__v": 0 })
                 .then(salles => {
                     if (salles.length != 0) {
-                        res.send({ response: salles });
+                        let ttPromise = [];
+                        salles.forEach((s) => {
+                            ttPromise.push(Bailleur.find({ _id: s.idBailleur }, { "password": 0, "token": 0, "__v": 0, "pieceId": 0 }));
+                        });
+                        Promise.all(ttPromise).then(result => {
+                            for (let i = 0; i < salles.length; i++) {
+                                let value = {
+                                    salle: salles[i],
+                                    bailleur: result[i][0]
+                                }
+                                tabFinal.push(value);
+                            }
+                            res.send({ response: tabFinal });
+                        });
                     } else {
                         res.send({ response: 'NO_ITEMS_FOUND' });
                     }
