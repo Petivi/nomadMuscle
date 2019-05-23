@@ -22,19 +22,17 @@ module.exports = (app) => {
                         let ttPromise = [];
                         salles.forEach((s) => {
                             ttPromise.push(Bailleur.find({ _id: s.idBailleur }, { "password": 0, "token": 0, "__v": 0, "pieceId": 0 }));
-                            /* Bailleur.find({ _id: s.idBailleur }, { "password": 0, "token": 0, "__v": 0, "pieceId": 0 })
-                                .then(b => {
-                                    s.idBailleur = b;
-                                    console.log(b);
-                                    tabFinal.push(s)
-                                }); */
                         });
                         Promise.all(ttPromise).then(result => {
-                            result.forEach(tab => {
-                                tabFinal.push(tab[0]);
-                            });
+                            for (let i = 0; i < salles.length; i++) {
+                                let value = {
+                                    salle: salles[i],
+                                    bailleur: result[i][0]
+                                }
+                                tabFinal.push(value);
+                            }
                             res.send({ response: tabFinal });
-                        })
+                        });
                     } else {
                         res.send({ response: 'NO_ITEMS_FOUND' });
                     }

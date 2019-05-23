@@ -33,6 +33,10 @@
 				<div class="col" *ngFor="let service of salle.service">{{service}}</div>
 			</div>
 			<div class="row">
+				<label class="col">Equipements</label>
+				<div class="col" *ngFor="let equip of salle.equipements">{{equip}}</div>
+			</div>
+			<div class="row">
 				<label class="col">Tarif horaire</label>
 				<div class="col">{{salle.tarifHoraire}}</div>
 			</div>
