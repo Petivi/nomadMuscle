@@ -47,6 +47,10 @@ export class FindRoomComponent implements OnInit {
 			this.ttSalle = salles.response;
 			console.log(this.ttSalle)
 			this.ttSalle.forEach(s => {
+				s.salle.disponibilite.semaine.forEach(s => {
+					s.heureDebut = this._appService.getCustomHour(s.debut);
+					s.heureFin = this._appService.getCustomHour(s.fin);
+				});
 				let mois = this.ttMois.find(m => s.salle.disponibilite.mois === m.libelle);
 				let max = mois.max.toString();
 				mois = mois.value.toString().padStart(2, '0');

@@ -65,8 +65,11 @@ export class Transaction {
     idLocataire: number;
     montant: number;
     date: Date;
+    dateString: string;
     debut: number;
+    heureDebut: String;
     fin: number;
+    heureFin: String;
     confirmee: boolean;
     annulee: boolean;
     constructor(info: any) {

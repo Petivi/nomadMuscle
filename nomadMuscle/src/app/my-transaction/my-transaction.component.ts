@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 
 import { AppService } from '../app.service';
 
@@ -17,7 +18,12 @@ export class MyTransactionComponent implements OnInit {
 	ngOnInit() {
 		this.typeUtilisateur = this._appService.getCookie('typeUserNomadMuscle');
 		this._appService.get('transactions').then((res: any) => {
-			this.ttTransaction = res;
+			this.ttTransaction = res.response;
+			this.ttTransaction.forEach(t => {
+				t.dateString = moment(t.date).format('DD/MM/YYYY');
+				t.heureDebut = this._appService.getCustomHour(t.debut);
+				t.heureFin = this._appService.getCustomHour(t.fin);
+			});
 		});
 	}
 

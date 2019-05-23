@@ -24,9 +24,9 @@ export class AppService {
     get(url: string) {
         return this._http.get(this.urlServeur + url, this.httpOptionsGet)
             .toPromise()
-                .then(res => {
-                    return res;
-                });
+            .then(res => {
+                return res;
+            });
     }
 
     post(url: string, value: any) {
@@ -53,5 +53,14 @@ export class AppService {
             }
         }
         return "";
+    }
+
+    getCustomHour(hour) {
+        if (hour % 2 == 1) { // avec demie heure
+            var newHour = (hour - 1) / 2;
+            return newHour.toString().padStart(2, "0") + ":30";
+        } else { // sans demie heure
+            return (hour / 2).toString().padStart(2, "0") + ":00";
+        }
     }
 }

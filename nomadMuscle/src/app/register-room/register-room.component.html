@@ -38,6 +38,12 @@
             <label for="wifi">Wifi</label>
             <input type="checkbox" id="wifi" name="equipments" (change)="gestionEquipement($event, 'Wifi')">
         </div>
+        <div class="form-group">
+            <p>Mois de location</p>
+            <select [(ngModel)]="salle.disponibilite.mois">
+                <option *ngFor="let m of ttMois" [value]="m.libelle">{{m.libelle}}</option>
+            </select>
+        </div>
 
         <div class="">
             <div class="row">

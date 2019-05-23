@@ -21,7 +21,7 @@ module.exports = (app) => {
                         ttPromise.push(Transaction.find({ idSalle: s._id }, { "__v": 0 }));
                     });
                     Promise.all(ttPromise).then(result => {
-                        res.send({ response: result });
+                        res.send({ response: result[0] });
                     });
                 }).catch(err => res.status(500).send({ error: err }));
 

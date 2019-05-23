@@ -16,10 +16,10 @@ import { RegisterRoomComponent } from './register-room/register-room.component';
 import { MyRoomComponent } from './my-room/my-room.component';
 import { FindRoomComponent } from './find-room/find-room.component';
 import { MyTransactionComponent } from './my-transaction/my-transaction.component';
+import { MyAccountComponent } from './my-account/my-account.component';
 
 
 const appRoutes: Routes = [
-  {path: '', component: HomeComponent},
   {path: '', component: HomeComponent},
   {path: 'connexion', component: LoginComponent},
   {path: 'inscription', component:RegisterUSerComponent},
@@ -28,6 +28,7 @@ const appRoutes: Routes = [
   {path: 'mes-salles', component: MyRoomComponent},
   {path: 'trouver-une-salle', component: FindRoomComponent},
   {path: 'transactions', component: MyTransactionComponent},
+  {path: 'mon-compte', component: MyAccountComponent},
 ]
 
 @NgModule({
@@ -41,7 +42,8 @@ const appRoutes: Routes = [
     RegisterRoomComponent,
     MyRoomComponent,
     FindRoomComponent,
-    MyTransactionComponent
+    MyTransactionComponent,
+    MyAccountComponent
   ],
   imports: [
     BrowserModule,
