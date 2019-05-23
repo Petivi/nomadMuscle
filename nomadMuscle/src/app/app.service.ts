@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -73,4 +74,12 @@ export class AppService {
             return (hour / 2).toString().padStart(2, "0") + "h00";
         }
     }
+
+    uploadImage(image: File) {
+        const formData = new FormData();
+    
+        formData.append('image', image);
+    
+        return this._http.post(this.urlServeur + 'bailleurs/pieceId', formData, this.httpOptionsPost);
+      }
 }
