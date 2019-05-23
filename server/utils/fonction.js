@@ -2,6 +2,9 @@ const Transaction = require('./../models/transaction');
 const Locataire = require('./../models/locataire');
 const Bailleur = require('./../models/bailleur');
 const Salle = require('./../models/salle');
+const nodemailer = require("nodemailer");
+const security = require('./../config/security');
+
 
 module.exports.confirmationTransaction = (transaction, salle = null, locataire = null) => {
     return new Promise((resolve, reject) => {
@@ -50,3 +53,54 @@ getSalleLocataire = (transaction, salle = null, locataire = null) => {
 
     });
 }
+
+  module.exports.sendCustomMail = (mail, nom, prenom, subject, content) => {
+
+    sendingMail(mail, nom, prenom, subject, content);
+
+  }
+
+  async function sendingMail(mail, nom, prenom, subject, content){
+    // Generate SMTP service account from ethereal.email
+    nodemailer.createTestAccount((err, account) => {
+        if (err) {
+            console.error('Failed to create a testing account. ' + err.message);
+            return process.exit(1);
+        }
+
+
+        // Create a SMTP transporter object
+        let transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+                user: security.GMAIL_MAIL,
+                pass: security.GMAIL_PASS
+            }
+        });
+
+        const mailOptions = {
+          from: security.GMAIL_MAIL, // sender address
+          to: mail, // list of receivers
+          subject: subject, // Subject line
+          html: "<p>Bonjour "+prenom+" "+nom+", <br>"+content+"</p>"// plain text body
+        };
+
+        transporter.sendMail(mailOptions, function (err, info) {
+           if(err)
+             console.log(err)
+           else
+             console.log(info);
+        });
+    });
+  }
+
+  module.exports.getCustomHour = (hour) => {
+
+    if(hour%2 == 1){ // avec demie heure
+      var newHour = (hour-1)/2;
+      return newHour.toString().padStart(2, "0")+":30";
+    }else { // sans demie heure
+      return (hour/2).toString().padStart(2, "0")+":00";
+    }
+
+  }

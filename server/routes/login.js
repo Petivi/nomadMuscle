@@ -42,7 +42,6 @@ module.exports = (app) => {
 
 
     app.post('/login', (req, res) => {
-        console.log(req.body)
         var typeUser = req.body.type;
         var mail = req.body.data.mail;
         var password = req.body.data.password;

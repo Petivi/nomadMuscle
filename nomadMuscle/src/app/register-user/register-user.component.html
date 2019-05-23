@@ -1,33 +1,32 @@
 <div class="container">
-  <div class="radio-group">
-    <input type="radio" id="bailleur" [(ngModel)]="radio" name="role" value="bailleur">
-    <label for="bailleur">Bailleur</label>
-    <input type="radio" id="locataire" [(ngModel)]="radio" name="role" value="locataire">
-    <label for="locataire">Locataire</label>
+  <div class="form-wrapper register-user-form">
+    <div class="row radio-group">
+      <label class="col-3 offset-2">Je suis</label>
+      <input type="radio" name="role" value="bailleur" id="bailleur" [(ngModel)]="radio">
+      <label for="bailleur">bailleur</label>
+      <input type="radio" name="role" value="locataire" id="locataire" [(ngModel)]="radio">
+      <label for="locataire">Locataire</label>
+    </div>
+    <div class="row form-group">
+      <label class="col-3 offset-2" for="lastname">Nom</label>
+      <input class="col-5" type="text" id="lastname" name="lastname" [(ngModel)]="user.nom">
+    </div>
+    <div class="row form-group">
+      <label class="col-3 offset-2" for="firstname">Prénom</label>
+      <input class="col-5" type="text" id="firstname" name="firstname" [(ngModel)]="user.prenom">
+    </div>
+    <div class="row form-group">
+      <label class="col-3 offset-2" for="email">Adresse email</label>
+      <input class="col-5" type="email" id="email" name="email" [(ngModel)]="user.mail">
+    </div>
+    <div class="row form-group">
+      <label class="col-3 offset-2" for="password">Mot de passe</label>
+      <input class="col-5" type="password" id="password" name="password" [(ngModel)]="user.password">
+    </div>
+    <div class="row form-group">
+      <label class="col-3 offset-2" for="dob">Date de naissance</label>
+      <input class="col-5" type="date" id="dob" datetime="yyyy-MM-dd:mm:ss" name="dob" [(ngModel)]="user.dateNaissance">
+    </div>
+    <button (click)="inscription()">Envoyer</button>
   </div>
-  <div class="form-group">
-    <label for="lastname">Nom</label>
-    <input type="text" id="lastname" name="lastname" [(ngModel)]="user.nom">
-  </div>
-  <div class="form-group">
-    <label for="firstname">Prénom</label>
-    <input type="text" id="firstname" name="firstname" [(ngModel)]="user.prenom">
-  </div>
-  <div class="form-group">
-    <label for="email">Adresse email</label>
-    <input type="email" id="email" name="email" [(ngModel)]="user.mail">
-  </div>
-  <div class="form-group">
-    <label for="password">Mot de passe</label>
-    <input type="password" id="password" name="password" [(ngModel)]="user.password">
-  </div>
-  <!-- <div class="form-group">
-      <label for="identification">Pièce d'identité</label>
-      <input type="file" id="identification">
-    </div> -->
-  <div class="form-group">
-    <label for="dob">Date de naissance</label>
-    <input type="date" id="dob" datetime="yyyy-MM-dd:mm:ss" name="dob" [(ngModel)]="user.dateNaissance">
-  </div>
-  <button (click)="inscription()">Envoyer</button>
 </div>
