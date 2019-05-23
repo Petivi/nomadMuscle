@@ -86,6 +86,18 @@ module.exports = (app) => {
                     locataire = new Locataire(locataire);
                     return locataire.save();
                 }).then(() => {
+                    /* MAIL */
+                    var heure_debut = fonctions.getCustomHour(transaction.debut);
+                    var heure_fin = fonctions.getCustomHour(transaction.fin);
+                    let bailleur_mail_subject = "Notification d'annulation de réservation";
+                    let bailleur_mail_content = `La réservation du `+transaction.date+` de : `+heure_debut+` à `+heure_fin+`<br>
+                    Le locataire a été remboursé de `+valeurRemboursement+` €`;
+                    let locataire_mail_subject = "Confirmation d'annulation de réservation";
+                    let locataire_mail_content = `La réservation du `+transaction.date+` de : `+heure_debut+` à `+heure_fin+`<br>
+                    Votre solde a été recrédité de `+valeurRemboursement+` €`;
+                    fonctions.sendCustomMail(bailleur.mail, bailleur.nom, bailleur.prenom, bailleur_mail_subject, bailleur_mail_content);
+                    fonctions.sendCustomMail(locataire.mail, locataire.nom, locataire.prenom, locataire_mail_subject, locataire_mail_content);
+                    /* FIN MAIL */
                     res.status(200).send({ response: 'true' });
                 }).catch(err => res.status(500).send({ error: err }));
             }
