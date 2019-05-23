@@ -1,5 +1,8 @@
 const Locataire = require('./../models/locataire');
 const { authenticate } = require('./../middleware/authenticate');
+const nodemailer = require("nodemailer");
+const fonctions = require('../utils/fonction');
+
 
 module.exports = (app) => {
 
@@ -35,6 +38,7 @@ module.exports = (app) => {
           var user_solde = locataire[0].solde;
           var new_solde = user_solde + add_solde;
           Locataire.findOneAndUpdate({_id:user_id}, {solde: new_solde}).then(locataire => {
+            fonctions.sendCustomMail("Oui");
             res.send({response:"BALANCE_EDITED"});
           });
         })
