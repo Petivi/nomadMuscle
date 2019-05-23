@@ -27,7 +27,7 @@ module.exports = (app) => {
                                     s.disponibilite.exception[i] = moment(s.disponibilite.exception[i]).format('DD/MM/YYYY');
                                 }
                             }
-                            ttPromise.push(Bailleur.find({ _id: s.idBailleur }, { "password": 0, "token": 0, "__v": 0, "pieceId": 0 }));
+                            ttPromise.push(Bailleur.find({ _id: s.idBailleur, pieceValidated: true }, { "password": 0, "token": 0, "__v": 0, "pieceId": 0 }));
                         });
                         Promise.all(ttPromise).then(result => {
                             for (let i = 0; i < salles.length; i++) {
