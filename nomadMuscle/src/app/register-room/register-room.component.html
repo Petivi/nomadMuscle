@@ -48,9 +48,9 @@
                     <div class="row">
                         <div class="col">debut</div>
                         <div class="col">
-                            <select id="">
+                            <select [(ngModel)]="jour.debut">
                                 <option selected value="">--</option>
-                                <option *ngFor="let t of times" [value]="t">{{t}}</option>
+                                <option *ngFor="let t of times" [value]="+t.value">{{t.display}}</option>
                                 {{times}}
                             </select>
                         </div>
@@ -58,9 +58,9 @@
                     <div class="row">
                         <div class="col">fin</div>
                         <div class="col">
-                            <select id="">
+                            <select [(ngModel)]="jour.fin">
                                 <option selected value="">--</option>
-                                <option *ngFor="let t of times" [value]="t">{{t}}</option>
+                                <option *ngFor="let t of times" [value]="t.value">{{t.display}}</option>
                                 {{times}}
                             </select>
                         </div>
