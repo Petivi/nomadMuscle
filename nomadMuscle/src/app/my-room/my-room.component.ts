@@ -11,13 +11,13 @@ import { Salle } from '../models/app.model';
 })
 export class MyRoomComponent implements OnInit {
     ttSalle: Salle[];
-
+    pieceValidated: boolean;
     constructor(private _appService: AppService) { }
 
     ngOnInit() {
-        this._appService.get('salles').then((salles: any) => {
-            this.ttSalle = salles.response;
-            console.log(this.ttSalle)
+        this._appService.get('salles').then((res: any) => {
+            this.ttSalle = res.response.salles;
+            this.pieceValidated = res.response.pieceIdValidated;
         });
     }
 

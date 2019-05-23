@@ -1,4 +1,10 @@
 <div class="container">
+	<div class="row mb-3" *ngIf="!pieceValidated">
+		<div class="col alert alert-warning text-center">
+			Attention vous n'avez pas enregistrer votre pièce d'idendité ou elle n'a pas encore été vérifiée.<br>
+			Vos salles ne seront donc pas visible par de potentiels locataires !
+		</div>
+	</div>
 	<div class="row mb-3" *ngFor="let salle of ttSalle">
 		<div class="col">
 			<div class="row">
@@ -21,10 +27,10 @@
 				<label class="col">Disponibilité</label>
 				<div class="col" *ngFor="let jour of salle.disponibilite.semaine">
 					{{jour.titre + ' ' + jour.debut + ' ' + jour.fin}}</div>
-				</div>
-				<div class="row">
-					<label class="col">Exception</label>
-					<div class="col" *ngFor="let exception of salle.disponibilite.exception">
+			</div>
+			<div class="row">
+				<label class="col">Exception</label>
+				<div class="col" *ngFor="let exception of salle.disponibilite.exception">
 					{{exception}}
 				</div>
 			</div>

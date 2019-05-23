@@ -11,7 +11,7 @@ module.exports = (app) => {
             Bailleur.find({ _id: req.body.user_id }).then(bailleur => {
                 Salle.find({ idBailleur: req.body.user_id }, { "__v": 0 }).then(salles => {
                     if (salles.length != 0) {
-                        res.send({ response: { salles: salles, pieceIdValidated: bailleur.pieceValidated }});
+                        res.send({ response: { salles: salles, pieceIdValidated: bailleur[0].pieceValidated } });
                     } else {
                         res.send({ response: 'NO_ITEMS_FOUND' });
                     }
@@ -38,7 +38,7 @@ module.exports = (app) => {
                                 }
                                 tabFinal.push(value);
                             }
-                            res.send({ response: tabFinal });
+                            res.send({ response: { salles: tabFinal } });
                         });
                     } else {
                         res.send({ response: 'NO_ITEMS_FOUND' });
