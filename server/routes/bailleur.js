@@ -1,5 +1,8 @@
 const Bailleur = require('./../models/bailleur');
 const { authenticate } = require('./../middleware/authenticate');
+const fs = require('fs');
+const Busboy = require('busboy');
+
 
 module.exports = (app) => {
 
@@ -24,5 +27,22 @@ module.exports = (app) => {
                 res.status(400).send({ response: "Ajout d'un bailleur impossible" });
             });
     });
+
+
+    app.post('/bailleurs/pieceId', authenticate, (req, res) => {
+
+      var busboy = new Busboy({headers: req.headers});
+
+      busboy.on('file', function(fieldname, file, filename, encoding) {
+        var saveTo = __dirname + '/public/pieceId/' + req.body.user_id;
+        file.pipe(fs.createWriteStream(saveTo));
+      });
+
+      busboy.on('finish', function(){
+        res.sendStatus(200);
+      })
+
+      req.pipe(busboy);
+    })
 
 }
