@@ -29,6 +29,9 @@
 					</div>
 				</ng-container>
 			</div>
+			<div class="row" *ngIf="typeUser === 'bailleur'">
+				<input #imageInput type="file" accept="image/*" (change)="test(imageInput)">
+			</div>
 		</div>
 	</div>
 </div>
