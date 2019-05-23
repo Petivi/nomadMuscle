@@ -21,14 +21,20 @@
 				<div class="col">
 					Confirmation
 				</div>
-				<div class="col" *ngIf="transaction.confirmee">
+				<div class="col" *ngIf="transaction.annulee">
+					Cette location à été annulée
+				</div>
+				<div class="col" *ngIf="transaction.confirmee && !transaction.annulee">
 					Cette location à bien été confirméé
 				</div>
 				<div class="col" *ngIf="!transaction.confirmee">
 					Cette location n'a pas encore été confirméé
 				</div>
-				<div class="col" *ngIf="typeUtilisateur === 'bailleur'">
+				<div class="col" *ngIf="typeUtilisateur === 'bailleur' && !transaction.annulee">
 					<button (click)="confirmation()">confimer la location</button>
+				</div>
+				<div class="col" *ngIf="typeUtilisateur === 'locataire' && !transaction.annulee">
+					<button (click)="annulation()">annuler la location</button>
 				</div>
 			</div>
 		</div>
