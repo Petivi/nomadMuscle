@@ -7,8 +7,8 @@ const { authenticate } = require('./../middleware/authenticate');
 
 module.exports = (app) => {
 
-    app.get('/transactions', (req, res) => {
-        Transaction.find({})
+    app.get('/transactions', authenticate, (req, res) => {
+        Transaction.find({ _id: req.body.user_id })
             .then(transactions => {
                 res.send({ response: transactions });
             }).catch(err => res.status(500).send({ error: err }));
