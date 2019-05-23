@@ -1,17 +1,22 @@
 <div class="container">
-    <div class="radio-group">
-        <input type="radio" name="role" value="bailleur" id="bailleur" [(ngModel)]="radio">
-        <label for="bailleur">bailleur</label>
-        <input type="radio" name="role" value="locataire" id="locataire" [(ngModel)]="radio">
-        <label for="locataire">Locataire</label>
+    <div class="form-wrapper login-form">
+        <div class="row radio-group">
+            <label class="col-3 offset-2">Je suis</label>
+            <input type="radio" name="role" value="bailleur" id="bailleur" [(ngModel)]="radio">
+            <label for="bailleur">bailleur</label>
+            <input type="radio" name="role" value="locataire" id="locataire" [(ngModel)]="radio">
+            <label for="locataire">Locataire</label>
+        </div>
+        <div class="row form-group">
+            <label class="col-3 offset-2" for="mail">Email</label>
+            <input class="col-5" type="text" id="mail" [(ngModel)]="user.mail">
+        </div>
+        <div class="row form-group">
+            <label class="col-3 offset-2" for="password">Mot de passe</label>
+            <input class="col-5" type="password" id="password" [(ngModel)]="user.password">
+        </div>
+        <div class="text-center">
+            <button (click)="connexion()">Se connecter</button>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="mail">Email</label>
-        <input type="text" id="mail" [(ngModel)]="user.mail">
-    </div>
-    <div class="form-group">
-        <label for="password">Mot de passe</label>
-        <input type="password" id="password" [(ngModel)]="user.password">
-    </div>
-    <button (click)="connexion()">Se connecter</button>
 </div>
