@@ -40,16 +40,18 @@ export class RegisterRoomComponent implements OnInit {
         for (var i = 0; tt < 24 * 60; i++) {
             var hh = Math.floor(tt / 60); // getting hours of day in 0-24 format
             var mm = (tt % 60); // getting minutes of the hour in 0-55 format
-            this.times[i] = ("0" + (hh)).slice(-2) + ':' + ("0" + mm).slice(-2); // pushing data in array in [00:00 - 12:00 AM/PM format]
+            this.times[i] = {display: ("0" + (hh)).slice(-2) + ':' + ("0" + mm).slice(-2), value: i}; // pushing data in array in [00:00 - 12:00 AM/PM format]
             tt = tt + x;
         }
     }
 
     addSalle() {
+        this.salle.disponibilite.semaine.forEach(jour => {
+            jour.debut = +jour.debut;
+            jour.fin = +jour.fin;
+        }); //TODO: mettre des erreur si il y a un debut > fin pour les disponibilité et si il manque les info obligatoire nom adresse etc...
         let value: any = { data: this.salle };
-        this._appService.post('salles', value).then(res => {
-            console.log(res);
-        });
+        this._appService.post('salles', value);
     }
 
     gestionEquipement(event, type: string) {
