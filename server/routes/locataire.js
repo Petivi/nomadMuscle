@@ -6,18 +6,15 @@ const fonctions = require('../utils/fonction');
 
 module.exports = (app) => {
 
-  app.get('/locataires', (req, res) => {
-    Locataire.find({})
+  app.get('/locataires', authenticate, (req, res) => {
+    if(req.body.type == "locataire"){
+      Locataire.find({ _id: req.body.user_id })
       .then(locataires => {
         res.send(locataires);
       })
-  })
-
-  app.get('/locataires/:id', (req, res) => {
-    Locataire.find({ _id: req.params.id })
-      .then(locataire => {
-        res.send(locataire);
-      })
+    }else {
+      res.send({error:"ERR_TYPE_INVALID"});
+    }
   })
 
   app.post('/locataires', (req, res) => {
