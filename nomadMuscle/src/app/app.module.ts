@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
@@ -15,6 +15,7 @@ import { RegisterUSerComponent } from './register-user/register-user.component';
 import { RegisterRoomComponent } from './register-room/register-room.component';
 import { MyRoomComponent } from './my-room/my-room.component';
 import { FindRoomComponent } from './find-room/find-room.component';
+import { MyTransactionComponent } from './my-transaction/my-transaction.component';
 
 
 const appRoutes: Routes = [
@@ -26,6 +27,7 @@ const appRoutes: Routes = [
   {path: 'enregistrer-salle', component: RegisterRoomComponent},
   {path: 'mes-salles', component: MyRoomComponent},
   {path: 'trouver-une-salle', component: FindRoomComponent},
+  {path: 'transactions', component: MyTransactionComponent},
 ]
 
 @NgModule({
@@ -38,7 +40,8 @@ const appRoutes: Routes = [
     RegisterUSerComponent,
     RegisterRoomComponent,
     MyRoomComponent,
-    FindRoomComponent
+    FindRoomComponent,
+    MyTransactionComponent
   ],
   imports: [
     BrowserModule,

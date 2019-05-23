@@ -1,0 +1,36 @@
+<div class="container">
+	<div class="row mb-5" *ngFor="let transaction of ttTransaction">
+		<div class="col">
+			<div class="row">
+				<div class="col">
+					Montant de la transaction
+				</div>
+				<div class="col">
+					{{transaction.montant}}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					Date de la location de la salle
+				</div>
+				<div class="col">
+					{{transaction.date}} de {{transaction.debut}} à {{transaction.fin}}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					Confirmation
+				</div>
+				<div class="col" *ngIf="transaction.confirmee">
+					Cette location à bien été confirméé
+				</div>
+				<div class="col" *ngIf="!transaction.confirmee">
+					Cette location n'a pas encore été confirméé
+				</div>
+				<div class="col" *ngIf="typeUtilisateur === 'bailleur'">
+					<button (click)="confirmation()">confimer la location</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
