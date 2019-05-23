@@ -4,6 +4,7 @@ export class User {
     mail: string;
     dateNaissance: Date;
     password: string;
+    solde: number;
     constructor(info: any) {
         for (let k in info) {
             if (info.hasOwnProperty(k)) {

@@ -1,4 +1,5 @@
 const Bailleur = require('./../models/bailleur');
+const { authenticate } = require('./../middleware/authenticate');
 
 module.exports = (app) => {
 

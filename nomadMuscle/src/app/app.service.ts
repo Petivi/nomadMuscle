@@ -39,6 +39,16 @@ export class AppService {
             });
     }
 
+    patch(url: string, value: any) {
+        return this._http.patch(this.urlServeur + url, value, this.httpOptionsPost)
+            .toPromise()
+            .then(res => {
+                return res
+            }).catch(err => {
+                console.log(err);
+            });
+    }
+
     getCookie(cname) {
         var name = cname + "=";
         var decodedCookie = decodeURIComponent(document.cookie);
