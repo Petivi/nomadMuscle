@@ -8,14 +8,15 @@ module.exports = (app) => {
     app.get('/salles', authenticate, (req, res) => {
         var tabFinal = [];
         if (req.body.type == 'bailleur') {
-            Salle.find({ idBailleur: req.body.user_id }, { "__v": 0 })
-                .then(salles => {
+            Bailleur.find({ _id: req.body.user_id }).then(bailleur => {
+                Salle.find({ idBailleur: req.body.user_id }, { "__v": 0 }).then(salles => {
                     if (salles.length != 0) {
-                        res.send({ response: salles });
+                        res.send({ response: { salles: salles, pieceIdValidated: bailleur.pieceValidated }});
                     } else {
                         res.send({ response: 'NO_ITEMS_FOUND' });
                     }
                 });
+            });
         } else if (req.body.type == 'locataire') {
             Salle.find({}, { "__v": 0 })
                 .then(salles => {
