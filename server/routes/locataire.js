@@ -8,7 +8,7 @@ module.exports = (app) => {
 
   app.get('/locataires', authenticate, (req, res) => {
     if(req.body.type == "locataire"){
-      Locataire.find({ _id: req.body.user_id })
+      Locataire.find({ _id: req.body.user_id }, { "__v": 0, "password":0, "token":0 })
       .then(locataires => {
         res.send(locataires);
       })

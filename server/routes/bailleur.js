@@ -5,7 +5,7 @@ module.exports = (app) => {
 
     app.get('/bailleurs', authenticate, (req, res) => {
       if(req.body.type == "bailleur"){
-        Bailleur.find({ _id: req.body.user_id })
+        Bailleur.find({ _id: req.body.user_id }, { "__v": 0, "password":0, "token":0 })
         .then(bailleurs => {
           res.send({ reponse: bailleurs });
         });
