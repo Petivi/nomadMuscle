@@ -36,9 +36,14 @@ module.exports = (app) => {
       Locataire.find({ _id: user_id })
         .then(locataire => {
           var user_solde = locataire[0].solde;
+          var user_mail = locataire[0].mail;
+          var user_nom = locataire[0].nom;
+          var user_prenom = locataire[0].prenom;
           var new_solde = user_solde + add_solde;
           Locataire.findOneAndUpdate({_id:user_id}, {solde: new_solde}).then(locataire => {
-            fonctions.sendCustomMail("Oui");
+            var mail_subject = "Créditation du solde";
+            var mail_content = `Votre solde a bien été crédité de `+add_solde+` €.<br> Votre solde est désormais de `+new_solde+` €.`;
+            fonctions.sendCustomMail(user_mail, user_nom, user_prenom, mail_subject, mail_content);
             res.send({response:"BALANCE_EDITED"});
           });
         })

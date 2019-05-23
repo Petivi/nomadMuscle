@@ -3,6 +3,7 @@ const Locataire = require('./../models/locataire');
 const Bailleur = require('./../models/bailleur');
 const Salle = require('./../models/salle');
 const nodemailer = require("nodemailer");
+const security = require('./../config/security');
 
 
 module.exports.confirmationTransaction = (transaction, salle = null, locataire = null) => {
@@ -53,13 +54,13 @@ getSalleLocataire = (transaction, salle = null, locataire = null) => {
     });
 }
 
-  module.exports.sendCustomMail = (mailContent) => {
+  module.exports.sendCustomMail = (mail, nom, prenom, subject, content) => {
 
-    sendingMail();
+    sendingMail(mail, nom, prenom, subject, content);
 
   }
 
-  async function sendingMail(){
+  async function sendingMail(mail, nom, prenom, subject, content){
     // Generate SMTP service account from ethereal.email
     nodemailer.createTestAccount((err, account) => {
         if (err) {
@@ -67,37 +68,28 @@ getSalleLocataire = (transaction, salle = null, locataire = null) => {
             return process.exit(1);
         }
 
-        console.log('Credentials obtained, sending message...');
 
         // Create a SMTP transporter object
         let transporter = nodemailer.createTransport({
-            host: account.smtp.host,
-            port: account.smtp.port,
-            secure: account.smtp.secure,
-            auth: {
-                user: account.user,
-                pass: account.pass
+          service: 'gmail',
+          auth: {
+                user: security.GMAIL_MAIL,
+                pass: security.GMAIL_PASS
             }
         });
 
-        // Message object
-        let message = {
-            from: 'Sender Name <sender@example.com>',
-            to: 'Recipient <tanguy.dumay@hotmail.fr>',
-            subject: 'Nodemailer is unicode friendly ✔',
-            text: 'Hello to myself!',
-            html: '<p><b>Hello</b> to myself!</p>'
+        const mailOptions = {
+          from: security.GMAIL_MAIL, // sender address
+          to: mail, // list of receivers
+          subject: subject, // Subject line
+          html: "<p>"+content+"</p>"// plain text body
         };
 
-        transporter.sendMail(message, (err, info) => {
-            if (err) {
-                console.log('Error occurred. ' + err.message);
-                return process.exit(1);
-            }
-
-            console.log('Message sent: %s', info.messageId);
-            // Preview only available when sending through an Ethereal account
-            console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+        transporter.sendMail(mailOptions, function (err, info) {
+           if(err)
+             console.log(err)
+           else
+             console.log(info);
         });
     });
   }
