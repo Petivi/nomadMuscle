@@ -1,11 +1,13 @@
 <div class="container">
   <div class="form-wrapper register-user-form">
     <div class="row radio-group">
-      <label class="col-3 offset-2">Je suis</label>
-      <input type="radio" name="role" value="bailleur" id="bailleur" [(ngModel)]="radio">
-      <label for="bailleur">bailleur</label>
-      <input type="radio" name="role" value="locataire" id="locataire" [(ngModel)]="radio">
-      <label for="locataire">Locataire</label>
+      <span class="col-3 offset-2">Je suis</span>
+      <div>
+        <input type="radio" name="role" value="bailleur" id="bailleur" [(ngModel)]="radio">
+        <label for="bailleur">Bailleur</label>
+        <input type="radio" name="role" value="locataire" id="locataire" [(ngModel)]="radio">
+        <label for="locataire">Locataire</label>
+      </div>
     </div>
     <div class="row form-group">
       <label class="col-3 offset-2" for="lastname">Nom</label>
@@ -27,6 +29,8 @@
       <label class="col-3 offset-2" for="dob">Date de naissance</label>
       <input class="col-5" type="date" id="dob" datetime="yyyy-MM-dd:mm:ss" name="dob" [(ngModel)]="user.dateNaissance">
     </div>
-    <button (click)="inscription()">Envoyer</button>
+    <div class="text-center">
+      <button (click)="inscription()">S'inscrire</button>
+    </div>
   </div>
 </div>
