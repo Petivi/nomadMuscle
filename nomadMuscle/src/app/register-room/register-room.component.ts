@@ -34,9 +34,7 @@ export class RegisterRoomComponent implements OnInit {
 
     getHalfHours() {
         var x = 30; //minutes interval
-        // var times = []; // time array
         var tt = 0; // start time
-
         for (var i = 0; tt < 24 * 60; i++) {
             var hh = Math.floor(tt / 60); // getting hours of day in 0-24 format
             var mm = (tt % 60); // getting minutes of the hour in 0-55 format

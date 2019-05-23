@@ -50,7 +50,7 @@
                         <div class="col">
                             <select [(ngModel)]="jour.debut">
                                 <option selected value="">--</option>
-                                <option *ngFor="let t of times" [value]="+t.value">{{t.display}}</option>
+                                <option *ngFor="let t of times" [value]="t.value">{{t.display}}</option>
                                 {{times}}
                             </select>
                         </div>

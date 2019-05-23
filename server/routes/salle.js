@@ -1,6 +1,7 @@
 const Salle = require('./../models/salle');
 const Bailleur = require('./../models/bailleur');
 const { authenticate } = require('./../middleware/authenticate');
+const moment = require('moment');
 
 module.exports = (app) => {
 
@@ -21,6 +22,11 @@ module.exports = (app) => {
                     if (salles.length != 0) {
                         let ttPromise = [];
                         salles.forEach((s) => {
+                            if (s.disponibilite && s.disponibilite.exception && s.disponibilite.exception.length > 0) {
+                                for (let i = 0; i < s.disponibilite.exception.length; i++) {
+                                    s.disponibilite.exception[i] = moment(s.disponibilite.exception[i]).format('DD/MM/YYYY');
+                                }
+                            }
                             ttPromise.push(Bailleur.find({ _id: s.idBailleur }, { "password": 0, "token": 0, "__v": 0, "pieceId": 0 }));
                         });
                         Promise.all(ttPromise).then(result => {
