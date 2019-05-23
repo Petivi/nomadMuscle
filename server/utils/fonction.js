@@ -82,7 +82,7 @@ getSalleLocataire = (transaction, salle = null, locataire = null) => {
           from: security.GMAIL_MAIL, // sender address
           to: mail, // list of receivers
           subject: subject, // Subject line
-          html: "<p>"+content+"</p>"// plain text body
+          html: "<p>Bonjour "+prenom+" "+nom+", <br>"+content+"</p>"// plain text body
         };
 
         transporter.sendMail(mailOptions, function (err, info) {
