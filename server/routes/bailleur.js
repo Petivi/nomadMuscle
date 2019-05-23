@@ -1,20 +1,19 @@
 const Bailleur = require('./../models/bailleur');
+const { authenticate } = require('./../middleware/authenticate');
 
 module.exports = (app) => {
 
-    app.get('/bailleurs', (req, res) => {
-        Bailleur.find({})
-            .then(bailleurs => {
-                res.send({ reponse: bailleurs });
-            });
+    app.get('/bailleurs', authenticate, (req, res) => {
+      if(req.body.type == "bailleur"){
+        Bailleur.find({ _id: req.body.user_id }, { "__v": 0, "password":0, "token":0 })
+        .then(bailleurs => {
+          res.send({ reponse: bailleurs });
+        });
+      }else {
+        res.send({error:"ERR_TYPE_INVALID"});
+      }
     });
 
-    app.get('/bailleurs/:id', (req, res) => {
-        Bailleur.find({ _id: req.params.id })
-            .then(bailleur => {
-                res.send({ response: bailleur });
-            });
-    });
 
     app.post('/bailleurs', (req, res) => {
         let bailleur = new Bailleur(req.body.data);

@@ -8,10 +8,26 @@ const { authenticate } = require('./../middleware/authenticate');
 module.exports = (app) => {
 
     app.get('/transactions', authenticate, (req, res) => {
-        Transaction.find({ _id: req.body.user_id })
-            .then(transactions => {
-                res.send({ response: transactions });
-            }).catch(err => res.status(500).send({ error: err }));
+        if (req.body.type == "locataire") {
+            Transaction.find({ idLocataire: req.body.user_id })
+                .then(transactions => {
+                    res.send({ response: transactions });
+                }).catch(err => res.status(500).send({ error: err }));
+        } else if (req.body.type == "bailleur") {
+            Salle.find({ idBailleur: req.body.user_id })
+                .then(salles => {
+                    let ttPromise = [];
+                    salles.forEach((s) => {
+                        ttPromise.push(Transaction.find({ idSalle: s._id }, { "__v": 0 }));
+                    });
+                    Promise.all(ttPromise).then(result => {
+                        res.send({ response: result });
+                    });
+                }).catch(err => res.status(500).send({ error: err }));
+
+        } else {
+            res.send({ error: "ERR_TYPE_INVALID" });
+        }
     });
 
     app.get('/transactions/:id', (req, res) => {
@@ -90,11 +106,11 @@ module.exports = (app) => {
                     var heure_debut = fonctions.getCustomHour(transaction.debut);
                     var heure_fin = fonctions.getCustomHour(transaction.fin);
                     let bailleur_mail_subject = "Notification d'annulation de réservation";
-                    let bailleur_mail_content = `La réservation du `+transaction.date+` de : `+heure_debut+` à `+heure_fin+`<br>
-                    Le locataire a été remboursé de `+valeurRemboursement+` €`;
+                    let bailleur_mail_content = `La réservation du ` + transaction.date + ` de : ` + heure_debut + ` à ` + heure_fin + `<br>
+                    Le locataire a été remboursé de `+ valeurRemboursement + ` €`;
                     let locataire_mail_subject = "Confirmation d'annulation de réservation";
-                    let locataire_mail_content = `La réservation du `+transaction.date+` de : `+heure_debut+` à `+heure_fin+`<br>
-                    Votre solde a été recrédité de `+valeurRemboursement+` €`;
+                    let locataire_mail_content = `La réservation du ` + transaction.date + ` de : ` + heure_debut + ` à ` + heure_fin + `<br>
+                    Votre solde a été recrédité de `+ valeurRemboursement + ` €`;
                     fonctions.sendCustomMail(bailleur.mail, bailleur.nom, bailleur.prenom, bailleur_mail_subject, bailleur_mail_content);
                     fonctions.sendCustomMail(locataire.mail, locataire.nom, locataire.prenom, locataire_mail_subject, locataire_mail_content);
                     /* FIN MAIL */
