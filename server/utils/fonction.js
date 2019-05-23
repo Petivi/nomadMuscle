@@ -94,13 +94,13 @@ getSalleLocataire = (transaction, salle = null, locataire = null) => {
     });
   }
 
-  module.exports.getCustomHeure = (heure) => {
+  module.exports.getCustomHour = (hour) => {
 
-    if(heure%2 == 1){ // avec demie heure
-      var newHeure = (heure-1)/2;
-      return newHeure.toString().padStart(2, "0")+":30";
+    if(hour%2 == 1){ // avec demie heure
+      var newHour = (hour-1)/2;
+      return newHour.toString().padStart(2, "0")+":30";
     }else { // sans demie heure
-      return (heure/2).toString().padStart(2, "0")+":00";
+      return (hour/2).toString().padStart(2, "0")+":00";
     }
 
   }
