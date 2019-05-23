@@ -1,36 +1,36 @@
 <div class="container">
     <div class="form-wrapper">
-        <h1>Proposer ma salle</h1>
-        <div class="form-group">
-            <label for="name">Nom de la salle</label>
-            <input type="text" id="name" [(ngModel)]="salle.nom">
+        <h1 class="text-center">Proposer ma salle</h1>
+        <div class="row form-group">
+            <label class="col-3 offset-2" for="name">Nom de la salle</label>
+            <input class="col-5" type="text" id="name" [(ngModel)]="salle.nom">
         </div>
-        <div class="form-group">
-            <label for="address">Adresse</label>
-            <input type="text" id="address" [(ngModel)]="salle.adresse">
+        <div class="row form-group">
+            <label class="col-3 offset-2" for="address">Adresse</label>
+            <input class="col-5" type="text" id="address" [(ngModel)]="salle.adresse">
         </div>
-        <div class="form-group">
-            <label for="dimensions">Dimensions (m2)</label>
-            <input type="number" id="dimensions" [(ngModel)]="salle.dimension">
+        <div class="row form-group">
+            <label class="col-3 offset-2" for="dimensions">Dimensions (m2)</label>
+            <input class="col-5" type="number" id="dimensions" [(ngModel)]="salle.dimension">
         </div>
-        <div class="form-group">
-            <label for="maxusers">Nombre d'utilisateurs max</label>
-            <input type="number" id="maxusers" min="1" max="10" [(ngModel)]="salle.utilisateurMax">
+        <div class="row form-group">
+            <label class="col-3 offset-2" for="maxusers">Nombre d'utilisateurs max</label>
+            <input class="col-5" type="number" id="maxusers" min="1" max="10" [(ngModel)]="salle.utilisateurMax">
         </div>
-        <div class="form-group">
-            <label for="price">Tarif horaire</label>
-            <input type="number" id="price" min="1" max="100" [(ngModel)]="salle.tarifHoraire">
+        <div class="row form-group">
+            <label class="col-3 offset-2" for="price">Tarif horaire</label>
+            <input class="col-5" type="number" id="price" min="1" max="100" [(ngModel)]="salle.tarifHoraire">
         </div>
-        <div class="form-group">
-            <label for="refundRate">Pourcentage remboursement</label>
-            <input type="number" id="refundRate" min="0" max="100" [(ngModel)]="salle.pourcentageRemboursement">
+        <div class="row form-group">
+            <label class="col-3 offset-2" for="refundRate">Pourcentage remboursement</label>
+            <input class="col-5" type="number" id="refundRate" min="0" max="100" [(ngModel)]="salle.pourcentageRemboursement">
         </div>
-        <div class="form-group">
-            <label for="autovalidation">Validation automatique</label>
+        <div class="row form-group">
+            <label class="col-3 offset-2" for="autovalidation">Validation automatique</label>
             <input type="checkbox" id="autovalidation" [(ngModel)]="salle.validationAuto">
         </div>
-        <div class="form-group">
-            <p>Equipement à disposition</p>
+        <div class="row form-group">
+            <p class="col-3 offset-2">Equipement à disposition</p>
             <label for="shower">Douche</label>
             <input type="checkbox" id="shower" name="equipments" (change)="gestionEquipement($event, 'Douche')">
             <label for="toilets">Toilettes</label>
@@ -38,52 +38,46 @@
             <label for="wifi">Wifi</label>
             <input type="checkbox" id="wifi" name="equipments" (change)="gestionEquipement($event, 'Wifi')">
         </div>
-        <div class="form-group">
-            <p>Mois de location</p>
-            <select [(ngModel)]="salle.disponibilite.mois">
+        <div class="row form-group">
+            <p class="col-3 offset-2">Mois de location</p>
+            <select [(ngModel)]="salle.disponibilite.mois" class="col-5">
                 <option *ngFor="let m of ttMois" [value]="m.libelle">{{m.libelle}}</option>
             </select>
         </div>
 
-        <div class="">
-            <div class="row">
-                <div class="col" *ngFor="let jour of salle.disponibilite.semaine">
-                    <div class="row">
-                        <div class="col">{{jour.titre}}</div>
-                    </div>
-                    <div class="row">
-                        <div class="col">debut</div>
-                        <div class="col">
-                            <select [(ngModel)]="jour.debut">
-                                <option selected value="">--</option>
-                                <option *ngFor="let t of times" [value]="t.value">{{t.display}}</option>
-                                {{times}}
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">fin</div>
-                        <div class="col">
-                            <select [(ngModel)]="jour.fin">
-                                <option selected value="">--</option>
-                                <option *ngFor="let t of times" [value]="t.value">{{t.display}}</option>
-                                {{times}}
-                            </select>
-                        </div>
-                    </div>
-                </div>
+        <div class="row m-b-10" *ngFor="let jour of salle.disponibilite.semaine">
+
+            <div class="col-3 offset-2">{{jour.titre}}</div>
+            <div class="col-1">debut</div>
+            <div class="col-2">
+                <select [(ngModel)]="jour.debut">
+                    <option selected value="">--</option>
+                    <option *ngFor="let t of times" [value]="t.value">{{t.display}}</option>
+                    {{times}}
+                </select>
             </div>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col">
-                        <input type="date" [(ngModel)]="selectedDate">
-                    </div>
-                    <div class="col">
-                        <button (click)="addException()">Ajouter une exception</button>
-                    </div>
-                </div>
+
+            <div class="col-1">fin</div>
+            <div class="col-2">
+                <select [(ngModel)]="jour.fin">
+                    <option selected value="">--</option>
+                    <option *ngFor="let t of times" [value]="t.value">{{t.display}}</option>
+                    {{times}}
+                </select>
             </div>
+
+        </div>
+        <div class="row form-group">
+            <div class="col-3 offset-2">
+                <input type="date" [(ngModel)]="selectedDate">
+            </div>
+            <div class="col-5">
+                <button (click)="addException()">Ajouter une exception</button>
+            </div>
+        </div>
+        <div class="text-center">        
             <button (click)="addSalle()">Envoyer</button>
         </div>
+
     </div>
 </div>
