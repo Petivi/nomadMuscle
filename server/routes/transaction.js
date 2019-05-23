@@ -32,15 +32,15 @@ module.exports = (app) => {
             }).then(salles => {
                 salle = new Salle(salles[0]);
                 if (ttTransactionEmpietantes.length >= salle.utilisateurMax) { // si il y a deja le nombre max de personne dans la salle
-                    res.status(500).send({ response: 'Cette salle est complète pour ce jour et ces horaires' });
+                    res.status(200).send({ response: 'Cette salle est complète pour ce jour et ces horaires' });
                 } else if (ttTransactionEmpietantes.find(t => t.idLocataire === transaction.idLocataire)) {
-                    res.status(500).send({ response: 'Vous avez déjà loué cette salle pour ce jour et ces horaires' });
+                    res.status(200).send({ response: 'Vous avez déjà loué cette salle pour ce jour et ces horaires' });
                 } else {
                     return Locataire.find({ _id: transaction.idLocataire }).then(locataire => {
                         locataire = new Locataire(locataire[0]);
                         locataire.solde -= transaction.montant;
                         if (locataire.solde < 0) {
-                            res.status(500).send({ response: 'le locataire n\'a pas assez d\'argent pour prendre cette salle' });
+                            res.status(200).send({ response: 'le locataire n\'a pas assez d\'argent pour prendre cette salle' });
                         } else {
                             if (salle.validationAuto) {
                                 transaction.confirmee = true;

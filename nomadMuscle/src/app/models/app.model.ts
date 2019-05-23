@@ -59,3 +59,21 @@ export class Jour {
         }
     }
 }
+
+export class Transaction {
+    idSalle: string;
+    idLocataire: number;
+    montant: number;
+    date: Date;
+    debut: number;
+    fin: number;
+    confirmee: boolean;
+    annulee: boolean;
+    constructor(info: any) {
+        for (let k in info) {
+            if (info.hasOwnProperty(k)) {
+                this[k] = info[k];
+            }
+        }
+    }
+}
