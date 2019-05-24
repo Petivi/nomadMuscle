@@ -29,12 +29,23 @@
 					</div>
 				</ng-container>
 			</div>
-			<div class="row" *ngIf="typeUser === 'bailleur'">
+			<div class="row">
 				<div class="col">
 					Pièce d'identité
 				</div>
 				<div class="col" *ngIf="!user.pieceId">
-					<input #imageInput type="file" accept="image/*" (change)="addImage(imageInput)">
+					<input #pieceId type="file" accept="image/*" (change)="addImage(pieceId, true)">
+				</div>
+				<div class="col" *ngIf="user.pieceId">
+					Enregistrée
+				</div>
+			</div>
+			<div class="row" *ngIf="typeUser === 'locataire'">
+				<div class="col">
+					Certificat Médical
+				</div>
+				<div class="col" *ngIf="!user.certificat">
+					<input #certificat type="file" accept="image/*" (change)="addImage(certificat, false)">
 				</div>
 				<div class="col" *ngIf="user.pieceId">
 					Enregistrée

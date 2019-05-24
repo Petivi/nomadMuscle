@@ -75,11 +75,15 @@ export class AppService {
         }
     }
 
-    uploadImage(image: File) {
+    uploadImage(image: File, typeUser: string, pieceId: boolean) {
         const formData = new FormData();
-    
+
         formData.append('image', image);
-    
-        return this._http.post(this.urlServeur + 'bailleurs/pieceId', formData, this.httpOptionsPost);
+
+        if(pieceId){
+          return this._http.post(this.urlServeur + typeUser + 's/pieceId', formData, this.httpOptionsPost);
+        }else if(typeUser === "locataire"){
+          return this._http.post(this.urlServeur + typeUser + 's/certificat', formData, this.httpOptionsPost);
+        }
       }
 }
