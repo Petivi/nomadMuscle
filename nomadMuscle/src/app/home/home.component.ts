@@ -1,5 +1,6 @@
 import { AppService } from './../app.service';
 import { Component, OnInit } from '@angular/core';
+import { MapsComponent } from '../maps/maps.component';
 
 @Component({
   selector: 'app-home',
@@ -11,9 +12,6 @@ export class HomeComponent implements OnInit {
   constructor(private _appService: AppService) { }
 
   ngOnInit() {
-    /* this._appService.get().then(res => {
-      console.log(res);
-    }) */
   }
 
 }
