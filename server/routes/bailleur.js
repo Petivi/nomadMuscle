@@ -41,7 +41,7 @@ module.exports = (app) => {
                 let dirName = __dirname.split('\\');
                 dirName.pop();
                 dirName = dirName.join('\\')
-                var saveTo = dirName + '/public/pieceId/' + newFileName;
+                var saveTo = dirName + '/public/bailleurs/' + newFileName;
                 file.pipe(fs.createWriteStream(saveTo));
             });
 

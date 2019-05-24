@@ -1,3 +1,5 @@
 nomadMuscle/node_modules
 server/node_modules
 server/config
+server/public/bailleurs/*
+server/public/locataires/*
