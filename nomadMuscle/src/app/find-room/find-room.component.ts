@@ -43,8 +43,8 @@ export class FindRoomComponent implements OnInit {
 		this.getHalfHours();
 		this.loading = true;
 		this._appService.get('salles').then((salles: any) => {
-			this.loading = false;
-			this.ttSalle = salles.response;
+			console.log(salles)
+			this.ttSalle = salles.response.salles;
 			console.log(this.ttSalle)
 			this.ttSalle.forEach(s => {
 				s.salle.disponibilite.semaine.forEach(s => {
@@ -58,6 +58,7 @@ export class FindRoomComponent implements OnInit {
 				s.salle.disponibilite.dateFin = '2019-' + mois + '-' + max;
 				s.transaction = new Transaction({ idSalle: s.salle._id, });
 			});
+			this.loading = false;
 		});
 	}
 
