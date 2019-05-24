@@ -22,7 +22,9 @@ export class HeaderComponent implements OnInit {
         document.cookie = 'tokenNomadMuscle= ; expires=Fri, 31 Dec 1900 23:59:59 GMT';
         document.cookie = 'typeUserNomadMuscle= ; expires=Fri, 31 Dec 1900 23:59:59 GMT';
         this.initMenu();
-        this._router.navigate(['/login']);
+        this._router.navigate(['/login']).then(res => {
+            location.reload();
+        });
     }
 
     initMenu() {
