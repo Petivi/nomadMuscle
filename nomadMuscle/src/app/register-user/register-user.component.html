@@ -2,7 +2,7 @@
   <div class="form-wrapper register-user-form">
     <div class="row radio-group">
       <span class="col-3 offset-2">Je suis</span>
-      <div>
+      <div class="col">
         <input type="radio" name="role" value="bailleur" id="bailleur" [(ngModel)]="radio">
         <label for="bailleur">Bailleur</label>
         <input type="radio" name="role" value="locataire" id="locataire" [(ngModel)]="radio">
@@ -11,19 +11,28 @@
     </div>
     <div class="row form-group">
       <label class="col-3 offset-2" for="lastname">Nom</label>
-      <input class="col-5" type="text" id="lastname" name="lastname" [(ngModel)]="user.nom">
+      <input class="col-5" type="text" id="lastname" 
+      [(ngModel)]="user.nom" 
+      (keyup)="checkEmpty(this.user.nom, 'nom')"
+      [ngClass]="{'is-valid': controlValid.nom, 'is-invalid': controlValid.nom === false}">
     </div>
     <div class="row form-group">
       <label class="col-3 offset-2" for="firstname">Prénom</label>
-      <input class="col-5" type="text" id="firstname" name="firstname" [(ngModel)]="user.prenom">
+      <input class="col-5" type="text" id="firstname" [(ngModel)]="user.prenom"  (keyup)="checkEmpty(this.user.prenom, 'prenom')"
+      [ngClass]="{'is-valid': controlValid.prenom, 'is-invalid': controlValid.prenom === false}">
     </div>
     <div class="row form-group">
       <label class="col-3 offset-2" for="email">Adresse email</label>
-      <input class="col-5" type="email" id="email" name="email" [(ngModel)]="user.mail">
+      <input class="col-5" 
+              type="text" 
+              id="email" 
+              [(ngModel)]="user.mail" 
+              (keyup)="checkEmail(this.user.mail, 'email')"
+              [ngClass]="{'is-valid': controlValid.email, 'is-invalid': controlValid.email === false}">
     </div>
     <div class="row form-group">
       <label class="col-3 offset-2" for="password">Mot de passe</label>
-      <input class="col-5" type="password" id="password" name="password" [(ngModel)]="user.password">
+      <input class="col-5" type="password" id="password" [(ngModel)]="user.password">
     </div>
     <div class="row form-group">
       <label class="col-3 offset-2" for="dob">Date de naissance</label>
