@@ -1,25 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { TestService } from './test.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit{
+export class AppComponent {
   title = 'nomadMuscle';
-  coucou: string = "couciu";
-  constructor(private _testService: TestService){
-
-  }
-
-  ngOnInit(){
-    // this._testService.get().then(res => {
-    //   console.log(res)
-    // });
-    // this.http.get('http:localhost:3000/films')
-    // .subscribe(response => {
-    //   console.log(response);
-    // })
-  }
+  constructor() {}
 }

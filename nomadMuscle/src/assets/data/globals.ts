@@ -20,4 +20,4 @@ export const ttMois: any[] = [
     { libelle: 'Octobre', numero: 9, max: 31 },
     { libelle: 'Novembre', numero: 10, max: 30 },
     { libelle: 'Decembre', numero: 11, max: 31 },
-]
+];

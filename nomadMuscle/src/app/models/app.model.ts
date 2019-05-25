@@ -85,6 +85,34 @@ export class Transaction {
 export class ImageSnippet {
     pending: boolean = false;
     status: string = 'init';
-  
-    constructor(public src: string, public file: File) {}
-  }
+
+    constructor(public src: string, public file: File) { }
+}
+
+export class JourCalendar {
+    optionDisplayed: boolean;
+    eventDisplayed: boolean;
+    moisCourant: number;
+    numero: number;
+    ttEvent: Evennement[];
+    constructor(info: any) {
+        for (let k in info) {
+            if (info.hasOwnProperty(k)) {
+                this[k] = info[k];
+            }
+        }
+    }
+}
+
+export class Evennement {
+    libelle: string;
+    debut: number;
+    fin: number;
+    constructor(info: any) {
+        for (let k in info) {
+            if (info.hasOwnProperty(k)) {
+                this[k] = info[k];
+            }
+        }
+    }
+}

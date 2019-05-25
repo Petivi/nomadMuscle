@@ -40,7 +40,7 @@ export class FindRoomComponent implements OnInit {
 	constructor(private _appService: AppService) { }
 
 	ngOnInit() {
-		this.getHalfHours();
+		this.times = this._appService.getHalfHours();
 		this.loading = true;
 		this._appService.get('salles').then((salles: any) => {
 			console.log(salles)
@@ -103,17 +103,6 @@ export class FindRoomComponent implements OnInit {
 			tempsDemande = tempsDemande / 2;
 			salle.transaction.montant = tempsDemande * salle.salle.tarifHoraire;
 			this._appService.post('transactions', { data: salle.transaction });
-		}
-	}
-
-	getHalfHours() {
-		var x = 30; //minutes interval
-		var tt = 0; // start time
-		for (var i = 0; tt < 24 * 60; i++) {
-			var hh = Math.floor(tt / 60); // getting hours of day in 0-24 format
-			var mm = (tt % 60); // getting minutes of the hour in 0-55 format
-			this.times[i] = { display: ("0" + (hh)).slice(-2) + ':' + ("0" + mm).slice(-2), value: i }; // pushing data in array in [00:00 - 12:00 AM/PM format]
-			tt = tt + x;
 		}
 	}
 

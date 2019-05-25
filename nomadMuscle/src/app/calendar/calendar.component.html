@@ -1,4 +1,4 @@
-<div class="calendar" *ngIf="ttAnnee.length > 200">
+<div class="calendar" *ngIf="ttAnnee.length > 200 && !selectedJour">
     <div class="row mb-3">
         <div class="col-md-1">Annee</div>
         <div class="col">
@@ -18,7 +18,81 @@
             <div class="col jour" *ngFor="let j of ttJourDeLaSemaine">{{j.libelle}}</div>
         </div>
         <div class="row semaine" *ngFor="let ttJour of ttSemaine">
-            <div class="col jour" *ngFor="let jour of ttJour">{{jour}}</div>
+            <ng-container *ngFor="let jour of ttJour">
+                <div class="col jour" (mouseenter)="showJourOption(jour, 'enter')"
+                    (mouseleave)="showJourOption(jour, 'leave')"
+                    [ngClass]="{ 'jourDisabled': !jour.moisCourant, 'jourSelectable': jour.moisCourant }">
+                    <div class="row">
+                        <div class="col">
+                            {{jour.numero}}
+                        </div>
+                    </div>
+                    <ng-container *ngIf="jour.ttEvent">
+                        <ng-container *ngFor="let event of jour.ttEvent">
+                            <div class="row mb-1" *ngIf="checkNbEvent(jour, event)">
+                                <div class="evennement">
+                                    {{event.libelle}} de {{(getCustomHour(event.debut))}} à
+                                    {{(getCustomHour(event.fin))}}
+                                </div>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                    <div *ngIf="jour.ttEvent && jour.ttEvent.length > 2"><strong>...</strong></div>
+                    <div class="optionJour" *ngIf="jour.optionDisplayed && !jour.eventDisplayed">
+                        <div class="row">
+                            <div class="col">
+                                <a class="w-100" (click)="showJour(jour)">Detail</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <a class="w-100" (click)="showEvent(jour)">Ajouter</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="eventJour" *ngIf="jour.eventDisplayed">
+                        <div class="row">
+                            <div class="col">
+                                Disponibilités
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">à</div>
+                            <div class="col">de</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                <select [(ngModel)]="selectedEvent.debut">
+                                    <option selected value="">--</option>
+                                    <option *ngFor="let t of times" [value]="t.value">{{t.display}}</option>
+                                    {{times}}
+                                </select>
+                            </div>
+                            <div class="col">
+                                <select [(ngModel)]="selectedEvent.fin">
+                                    <option selected value="">--</option>
+                                    <option *ngFor="let t of times" [value]="t.value">{{t.display}}</option>
+                                    {{times}}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <button (click)="cancelEvent(jour)">Annuler</button>
+                            </div>
+                            <div class="col">
+                                <button (click)="saveEvent(jour)">Enregistrer</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </ng-container>
         </div>
+    </div>
+</div>
+<div class="container" *ngIf="selectedJour">
+    <div class="row">
+        <div class="col">Detail</div>
     </div>
 </div>
