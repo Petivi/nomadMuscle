@@ -1,3 +1,5 @@
+import { Mois } from 'src/app/models/app.model';
+
 export const ttJour = [
     { libelle: 'Lundi', numero: 1 },
     { libelle: 'Mardi', numero: 2 },
@@ -7,7 +9,7 @@ export const ttJour = [
     { libelle: 'Samedi', numero: 6 },
     { libelle: 'Dimanche', numero: 0 },
 ];
-export const ttMois: any[] = [
+export const ttMois: Mois[] = [
     { libelle: 'Janvier', numero: 0, max: 31 },
     { libelle: 'Février', numero: 1, max: 28 },
     { libelle: 'Mars', numero: 2, max: 31 },

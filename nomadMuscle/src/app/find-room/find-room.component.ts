@@ -106,6 +106,7 @@ export class FindRoomComponent implements OnInit {
 	}
 
 	showCalendar(salle) {
+		console.log(salle)
 		this.selectedSalle = salle;
 	}
 

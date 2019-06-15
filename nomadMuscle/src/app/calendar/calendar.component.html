@@ -105,11 +105,25 @@
                 <button (click)="(selectedJour = null)">Retour</button>
             </div>
         </div>
-        <div class="row">
+        <div class="row mb-3">
             <div class="col">
                 Date: {{selectedJour.libelle + ' ' + selectedJour.numero}}
+                {{(ttMois | filter: {numero: selectedMois}:{col : 'libelle'})}}
             </div>
         </div>
+        <ng-container *ngIf="ttTransactionDuJour && ttTransactionDuJour.length > 0">
+            <div class="row">
+                <div class="col">
+                    Horaires indisponibles
+                </div>
+            </div>
+            <div class="row mb-3" *ngFor="let transDuJour of ttTransactionDuJour">
+                <div class="col">
+                    de {{(getCustomHour(transDuJour.debut))}} à
+                    {{(getCustomHour(transDuJour.fin))}}
+                </div>
+            </div>
+        </ng-container>
         <div class="row">
             <div class="col">
                 <input type="date" datetime="yyyy-MM-dd:mm:ss" id="start" name="trip-start"
