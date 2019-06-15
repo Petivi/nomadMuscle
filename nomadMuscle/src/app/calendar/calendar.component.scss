@@ -1,6 +1,19 @@
 .calendar {
+  padding-top: 20px;
+  border: 2px solid gray;
+  background-color: #e6e6e6;
+  margin-left: 80px;
+  margin-right: 80px;
+  margin-top: 50px;
+  height: 800px;
+  overflow: scroll;
+  .clickable {
+    cursor: pointer;
+  }
   .content {
+    margin: auto;
     height: 600px;
+    width: 1500px;
     text-align: center;
     .semaine {
       .eventJour {
@@ -52,6 +65,8 @@
       }
       height: 16.66%;
       .jour {
+        border: 1px solid black;
+        background-color: white;
         .evennement {
           font-size: 0.8rem;
           text-align: center;
@@ -60,7 +75,6 @@
           border-radius: 5px;
           border: 1px solid #8282823d;
         }
-        border: 1px solid black;
       }
       .jour.jourDisabled {
         background-color: rgba(131, 131, 131, 0.404);
@@ -70,7 +84,4 @@
       }
     }
   }
-  margin: auto;
-  margin-top: 50px;
-  width: 70%;
 }

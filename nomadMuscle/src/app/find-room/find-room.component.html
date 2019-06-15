@@ -2,67 +2,70 @@
     <img *ngIf="loading" src="../../assets/img/loading.gif" alt="chargement">
 </div>
 <div class="container" *ngIf="!loading">
-    <div class="row mb-4" *ngFor="let salle of ttSalle" style="border: 1px solid black; padding: 5px;">
-        <div class="col">
-            <div class="row">
-                <label class="col">Nom du bailleur</label>
-                <div class="col">{{salle.bailleur.nom}}</div>
-                <label class="col">Prenom du bailleur</label>
-                <div class="col">{{salle.bailleur.prenom}}</div>
-            </div>
-            <div class="row">
-                <label class="col">Nom</label>
-                <div class="col">{{salle.salle.nom}}</div>
-            </div>
-            <div class="row">
-                <label class="col">Adresse</label>
-                <div class="col">{{salle.salle.adresse}}</div>
-            </div>
-            <div class="row">
-                <label class="col">Dimension</label>
-                <div class="col">{{salle.salle.dimension}}</div>
-            </div>
-            <div class="row" *ngIf="salle.salle.equipements && salle.salle.equipements.length > 0">
-                <label class="col">Equipements</label>
-                <div class="col" *ngFor="let equipement of salle.salle.equipements">
-                    {{equipement}}
+    <ng-container *ngIf="!selectedSalle">
+        <div class="row mb-4" *ngFor="let salle of ttSalle" style="border: 1px solid black; padding: 5px;">
+            <div class="col">
+                <div class="row">
+                    <label class="col">Nom du bailleur</label>
+                    <div class="col">{{salle.bailleur.nom}}</div>
+                    <label class="col">Prenom du bailleur</label>
+                    <div class="col">{{salle.bailleur.prenom}}</div>
                 </div>
-            </div>
-            <div class="row">
-                <label class="col">Remboursement</label>
-                <div class="col">{{(salle.salle.pourcentageRemboursement ? salle.salle.pourcentageRemboursement : '0')}}
-                    %</div>
-            </div>
-            <div class="row">
-                <label class="col">Disponibilité pendant le mois de {{salle.salle.disponibilite.mois}}</label>
-                <ng-container *ngFor="let jour of salle.salle.disponibilite.semaine">
-                    <div class="col" *ngIf="jour.debut > 0 || jour.fin > 0">
-                        {{jour.titre + ' de ' + jour.heureDebut + 'h a ' + jour.heureFin + 'h'}}
+                <div class="row">
+                    <label class="col">Nom</label>
+                    <div class="col">{{salle.salle.nom}}</div>
+                </div>
+                <div class="row">
+                    <label class="col">Adresse</label>
+                    <div class="col">{{salle.salle.adresse}}</div>
+                </div>
+                <div class="row">
+                    <label class="col">Dimension</label>
+                    <div class="col">{{salle.salle.dimension}}</div>
+                </div>
+                <div class="row" *ngIf="salle.salle.equipements && salle.salle.equipements.length > 0">
+                    <label class="col">Equipements</label>
+                    <div class="col" *ngFor="let equipement of salle.salle.equipements">
+                        {{equipement}}
                     </div>
-                </ng-container>
-            </div>
-            <div class="row">
-                <label class="col">Exception</label>
-                <div class="col" *ngFor="let exception of salle.salle.disponibilite.exception">
-                    {{exception}}
                 </div>
-            </div>
-            <div class="row">
-                <label class="col">Service</label>
-                <div class="col" *ngFor="let service of salle.salle.service">{{service}}</div>
-            </div>
-            <div class="row">
-                <label class="col">Tarif horaire</label>
-                <div class="col">{{salle.salle.tarifHoraire}}</div>
-            </div>
-            <div class="row">
-                <label class="col">Nombre d'utilisateur maximum en simultané</label>
-                <div class="col">{{salle.salle.utilisateurMax}}</div>
-            </div>
-            <div class="row">
-                <label class="col">Location</label>
-            </div>
-            <div class="row">
+                <div class="row">
+                    <label class="col">Remboursement</label>
+                    <div class="col">
+                        {{(salle.salle.pourcentageRemboursement ? salle.salle.pourcentageRemboursement : '0')}}
+                        %</div>
+                </div>
+                <div class="row">
+                    <label class="col">Disponibilité pendant le mois de {{salle.salle.disponibilite.mois}}</label>
+                    <ng-container *ngFor="let jour of salle.salle.disponibilite.semaine">
+                        <div class="col" *ngIf="jour.debut > 0 || jour.fin > 0">
+                            {{jour.titre + ' de ' + jour.heureDebut + ' a ' + jour.heureFin}}
+                        </div>
+                    </ng-container>
+                </div>
+                <div class="row">
+                    <label class="col">Exception</label>
+                    <div class="col" *ngFor="let exception of salle.salle.disponibilite.exception">
+                        {{exception}}
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col">Service</label>
+                    <div class="col" *ngFor="let service of salle.salle.service">{{service}}</div>
+                </div>
+                <div class="row">
+                    <label class="col">Tarif horaire</label>
+                    <div class="col">{{salle.salle.tarifHoraire}}</div>
+                </div>
+                <div class="row">
+                    <label class="col">Nombre d'utilisateur maximum en simultané</label>
+                    <div class="col">{{salle.salle.utilisateurMax}}</div>
+                </div>
+                <div class="row">
+                    <label class="col">Location</label>
+                </div>
+                <button (click)="showCalendar(salle)">Afficher le calendrier</button>
+                <!--<div class="row">
                 <div class="col">
                     <input type="date" datetime="yyyy-MM-dd:mm:ss" id="start" name="trip-start" [(ngModel)]="salle.transaction.date"
                         min="{{salle.salle.disponibilite.dateDebut}}" max="{{salle.salle.disponibilite.dateFin}}">
@@ -90,14 +93,25 @@
                 <div class="col">
                     <button (click)="louerSalle(salle)">Louer cette salle</button>
                 </div>
-            </div>
-            <ng-container *ngIf="salle.ttError && salle.ttError.length > 0">
-                <div class="row alert alert-danger" *ngFor="let err of salle.ttError">
-                    <div class="col">
-                        {{err}}
+            </div> -->
+                <ng-container *ngIf="salle.ttError && salle.ttError.length > 0">
+                    <div class="row alert alert-danger" *ngFor="let err of salle.ttError">
+                        <div class="col">
+                            {{err}}
+                        </div>
                     </div>
-                </div>
-            </ng-container>
+                </ng-container>
+            </div>
+        </div>
+    </ng-container>
+</div>
+<ng-container *ngIf="selectedSalle">
+    <div class="container" style="max-width: 1772px;">
+        <div class="row">
+            <div class="col">
+                <button (click)="(selectedSalle = null)">Liste salles</button>
+            </div>
         </div>
     </div>
-</div>
+    <app-calendar [salle]="selectedSalle"></app-calendar>
+</ng-container>

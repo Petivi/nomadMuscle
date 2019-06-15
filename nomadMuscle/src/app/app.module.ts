@@ -25,46 +25,45 @@ import { CalendarComponent } from './calendar/calendar.component';
 
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'connexion', component: LoginComponent },
-  { path: 'inscription', component: RegisterUSerComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'enregistrer-salle', component: RegisterRoomComponent },
-  { path: 'mes-salles', component: MyRoomComponent },
-  { path: 'trouver-une-salle', component: FindRoomComponent },
-  { path: 'transactions', component: MyTransactionComponent },
-  { path: 'mon-compte', component: MyAccountComponent },
-  { path: 'calendar', component: CalendarComponent },
+	{ path: '', component: HomeComponent },
+	{ path: 'connexion', component: LoginComponent },
+	{ path: 'inscription', component: RegisterUSerComponent },
+	{ path: 'login', component: LoginComponent },
+	{ path: 'enregistrer-salle', component: RegisterRoomComponent },
+	{ path: 'mes-salles', component: MyRoomComponent },
+	{ path: 'trouver-une-salle', component: FindRoomComponent },
+	{ path: 'transactions', component: MyTransactionComponent },
+	{ path: 'mon-compte', component: MyAccountComponent },
 ]
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    HeaderComponent,
-    FooterComponent,
-    LoginComponent,
-    RegisterUSerComponent,
-    RegisterRoomComponent,
-    MyRoomComponent,
-    FindRoomComponent,
-    MyTransactionComponent,
-    MyAccountComponent,
-    MapsComponent,
-    CalendarComponent,
-    FilterPipe
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    RouterModule.forRoot(appRoutes),
-    AgmCoreModule.forRoot({
-      apiKey: ''
-    }),
-    FormsModule,
-  ],
-  providers: [AppService],
-  bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		HomeComponent,
+		HeaderComponent,
+		FooterComponent,
+		LoginComponent,
+		RegisterUSerComponent,
+		RegisterRoomComponent,
+		MyRoomComponent,
+		FindRoomComponent,
+		MyTransactionComponent,
+		MyAccountComponent,
+		MapsComponent,
+		CalendarComponent,
+		FilterPipe
+	],
+	imports: [
+		BrowserModule,
+		HttpClientModule,
+		RouterModule.forRoot(appRoutes),
+		AgmCoreModule.forRoot({
+			apiKey: ''
+		}),
+		FormsModule,
+	],
+	providers: [AppService],
+	bootstrap: [AppComponent]
 })
 
 

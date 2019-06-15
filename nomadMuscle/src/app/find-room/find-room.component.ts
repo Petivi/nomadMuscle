@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 
+import { CalendarComponent } from '../calendar/calendar.component';
+
 import { AppService } from '../app.service';
 
 import { Transaction } from '../models/app.model';
@@ -11,6 +13,7 @@ import { Transaction } from '../models/app.model';
 	styleUrls: ['./find-room.component.scss']
 })
 export class FindRoomComponent implements OnInit {
+	selectedSalle: any;
 	ttSalle: any[];
 	times: any[] = [];
 	loading: boolean = false;
@@ -43,7 +46,6 @@ export class FindRoomComponent implements OnInit {
 		this.times = this._appService.getHalfHours();
 		this.loading = true;
 		this._appService.get('salles').then((salles: any) => {
-			console.log(salles)
 			this.ttSalle = salles.response.salles;
 			console.log(this.ttSalle)
 			this.ttSalle.forEach(s => {
@@ -54,9 +56,6 @@ export class FindRoomComponent implements OnInit {
 				let mois = this.ttMois.find(m => s.salle.disponibilite.mois === m.libelle);
 				let max = mois.max.toString();
 				mois = mois.value.toString().padStart(2, '0');
-				s.salle.disponibilite.dateDebut = '2019-' + mois + '-01';
-				s.salle.disponibilite.dateFin = '2019-' + mois + '-' + max;
-				s.transaction = new Transaction({ idSalle: s.salle._id, });
 			});
 			this.loading = false;
 		});
@@ -104,6 +103,10 @@ export class FindRoomComponent implements OnInit {
 			salle.transaction.montant = tempsDemande * salle.salle.tarifHoraire;
 			this._appService.post('transactions', { data: salle.transaction });
 		}
+	}
+
+	showCalendar(salle) {
+		this.selectedSalle = salle;
 	}
 
 }
