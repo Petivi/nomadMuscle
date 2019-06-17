@@ -7,7 +7,7 @@ import { AgmCoreModule } from '@agm/core';
 
 import { FilterPipe } from './common/pipe/string.pipe';
 
-import { AppService } from './app.service';
+import { TestService } from './test.service';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -25,16 +25,16 @@ import { CalendarComponent } from './calendar/calendar.component';
 
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'connexion', component: LoginComponent },
-  { path: 'inscription', component: RegisterUSerComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'enregistrer-salle', component: RegisterRoomComponent },
-  { path: 'mes-salles', component: MyRoomComponent },
-  { path: 'trouver-une-salle', component: FindRoomComponent },
-  { path: 'transactions', component: MyTransactionComponent },
-  { path: 'mon-compte', component: MyAccountComponent },
-  { path: 'calendar', component: CalendarComponent },
+  {path: '', component: HomeComponent},
+  {path: 'connexion', component: LoginComponent},
+  {path: 'inscription', component:RegisterUSerComponent},
+  {path: 'login', component: LoginComponent},
+  {path: 'enregistrer-salle', component: RegisterRoomComponent},
+  {path: 'mes-salles', component: MyRoomComponent},
+  {path: 'trouver-une-salle', component: FindRoomComponent},
+  {path: 'transactions', component: MyTransactionComponent},
+  {path: 'mon-compte', component: MyAccountComponent},
+  {path: 'calendar', component: CalendarComponent},
 ]
 
 @NgModule({
@@ -56,14 +56,14 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
+    HttpClientModule, 
     RouterModule.forRoot(appRoutes),
     AgmCoreModule.forRoot({
       apiKey: ''
     }),
-    FormsModule,
+    FormsModule
   ],
-  providers: [AppService],
+  providers: [TestService],
   bootstrap: [AppComponent]
 })
 

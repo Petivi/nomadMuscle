@@ -1,5 +1,4 @@
 nomadMuscle/node_modules
-nomadMuscle/src/providers/config.ts
 server/node_modules
 server/config
 server/public/bailleurs/*

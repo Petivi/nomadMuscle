@@ -80,23 +80,10 @@ export class AppService {
 
         formData.append('image', image);
 
-        if (pieceId) {
-            return this._http.post(this.urlServeur + typeUser + 's/pieceId', formData, this.httpOptionsPost);
-        } else if (typeUser === "locataire") {
-            return this._http.post(this.urlServeur + typeUser + 's/certificat', formData, this.httpOptionsPost);
+        if(pieceId){
+          return this._http.post(this.urlServeur + typeUser + 's/pieceId', formData, this.httpOptionsPost);
+        }else if(typeUser === "locataire"){
+          return this._http.post(this.urlServeur + typeUser + 's/certificat', formData, this.httpOptionsPost);
         }
-    }
-
-    getHalfHours() {
-        let times = [];
-        var x = 30; //minutes interval
-        var tt = 0; // start time
-        for (var i = 0; tt < 24 * 60; i++) {
-            var hh = Math.floor(tt / 60); // getting hours of day in 0-24 format
-            var mm = (tt % 60); // getting minutes of the hour in 0-55 format
-            times[i] = { display: ("0" + (hh)).slice(-2) + ':' + ("0" + mm).slice(-2), value: i }; // pushing data in array in [00:00 - 12:00 AM/PM format]
-            tt = tt + x;
-        }
-        return times;
-    }
+      }
 }

@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+
 import * as globals from '../../assets/data/globals';
-
-import { AppService } from '../app.service';
-
-import { JourCalendar, Evennement } from '../models/app.model';
 
 @Component({
 	selector: 'app-calendar',
@@ -14,25 +11,17 @@ import { JourCalendar, Evennement } from '../models/app.model';
 export class CalendarComponent implements OnInit {
 	selectedYear: number = new Date().getFullYear();
 	selectedMois: number = new Date().getMonth();
-	selectedEvent: Evennement = new Evennement({});
-	selectedJour: JourCalendar;
-	times: any[] = [];
 	ttSemaine: any[] = [];
 	ttAnnee: number[] = [];
 	ttMois: any[] = globals.ttMois;
 	ttJourDeLaSemaine: any[] = globals.ttJour;
 
-	constructor(private _appService: AppService) { }
+	constructor() { }
 
 	ngOnInit() {
-		this.times = this._appService.getHalfHours();
 		this.initYears();
 		this.setMonth();
 
-	}
-
-	getCustomHour(hour: number) {
-		return this._appService.getCustomHour(hour);
 	}
 
 	initYears() {
@@ -52,12 +41,12 @@ export class CalendarComponent implements OnInit {
 		let ttSemaineToPush: any[] = [];
 		for (let i = 1; i < 43; i++) {
 			if (i >= jourDebutMois && i - jourDebutMois + 1 <= nbJourDansMois) { //si on est bien dans le mois courant (c'est a dire entre 1 et 31 pour le mois de mai par exemple)
-				ttSemaineToPush.push({ numero: chaqueJourDuMois, moisCourant: true, optionDisplayed: false });
+				ttSemaineToPush.push(chaqueJourDuMois);
 				chaqueJourDuMois++;
 			} else if (i < jourDebutMois) {
-				ttSemaineToPush.push({ numero: nbJourMoisPrecedent - jourDebutMois + 1 + i, moisCourant: false, optionDisplayed: false }); // ex 30 - 3 parce que le mois precedent a 30 jours et le mois courant commence un mercredi
+				ttSemaineToPush.push(nbJourMoisPrecedent - jourDebutMois + 1 + i); // ex 30 - 3 parce que le mois precedent a 30 jours et le mois courant commence un mercredi
 			} else {															   // or il n'y a que deux jour a remplir le lundi et le mardi donc on rajoute 1 pour avoir 30 - 3 = 28 + 1 = 29
-				ttSemaineToPush.push({ numero: chaqueJourMoisSuivant, moisCourant: false, optionDisplayed: false });					   // et on ajoute i pour incrementer sinon ça reste a 29
+				ttSemaineToPush.push(chaqueJourMoisSuivant);					   // et on ajoute i pour incrementer sinon ça reste a 29
 				chaqueJourMoisSuivant++;
 			}
 			k++;
@@ -82,47 +71,4 @@ export class CalendarComponent implements OnInit {
 		}
 	}
 
-	showJourOption(jour: JourCalendar, type: string) {
-		if (jour.moisCourant) {
-			this.ttSemaine.forEach(ttJour => {
-				ttJour.forEach(j => {
-					j.optionDisplayed = false;
-				});
-			});
-			if (type === 'enter') jour.optionDisplayed = true;
-			if (type === 'leave') jour.optionDisplayed = false;
-		}
-	}
-
-	showEvent(jour: JourCalendar) {
-		jour.optionDisplayed = false;
-		jour.eventDisplayed = true;
-	}
-
-	saveEvent(jour: JourCalendar) {
-		this.selectedEvent.libelle = 'Disponibilité'; // en fonction de bailleur ou locataire changer pour location ou autre
-		let value: Evennement = new Evennement({});
-		Object.assign(value, this.selectedEvent);
-		if (jour.ttEvent) {
-			jour.ttEvent.push(value);
-		} else {
-			jour.ttEvent = [value];
-		}
-		this.selectedEvent = new Evennement({});
-		jour.eventDisplayed = false;
-		console.log(jour)
-	}
-
-	cancelEvent(jour: JourCalendar) {
-		this.selectedEvent = new Evennement({});
-		jour.eventDisplayed = false;
-	}
-	
-	checkNbEvent(jour: JourCalendar, event: Evennement) {
-		return jour.ttEvent.findIndex(e => e === event) < 2;
-	}
-
-	showJour(jour = null) {
-		this.selectedJour = jour;
-	}
 }

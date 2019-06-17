@@ -3,70 +3,9 @@
     height: 600px;
     text-align: center;
     .semaine {
-      .eventJour {
-        width: 130%;
-        z-index: 1;
-        position: absolute;
-        padding: 2px;
-        top: 0px;
-        left: 100%;
-        border: 1px solid black;
-        box-shadow: 5px 5px 5px 0px #000000;
-        background-color: aliceblue;
-      }
-      .optionJour {
-        z-index: 1;
-        background-color: white;
-        position: absolute;
-        left: 100%;
-        top: 20%;
-        border: 1px solid black;
-        border-left: none;
-        padding: 3px;
-        a {
-          width: 100%;
-          position: relative;
-          text-decoration: none;
-          color: rgb(0, 0, 0);
-          padding: 5px;
-          margin-left: 5px;
-          &:after {
-            position: absolute;
-            bottom: 0;
-            content: "";
-            display: block;
-            width: 0;
-            height: 2px;
-            background-color: rgb(0, 0, 0);
-            transition: width 0.3s;
-            left: 50%;
-            transform: translateX(-50%);
-          }
-          &:hover {
-            &:after {
-              width: calc(100% - 10px);
-              transition: width 0.3s;
-            }
-          }
-        }
-      }
       height: 16.66%;
       .jour {
-        .evennement {
-          font-size: 0.8rem;
-          text-align: center;
-          width: 100%;
-          background-color: #27ff005e;
-          border-radius: 5px;
-          border: 1px solid #8282823d;
-        }
         border: 1px solid black;
-      }
-      .jour.jourDisabled {
-        background-color: rgba(131, 131, 131, 0.404);
-      }
-      .jour.jourSelectable:hover {
-        cursor: pointer;
       }
     }
   }
