@@ -15,18 +15,7 @@ const SalleSchema = new Schema({
         semaine: [
             { type: Jour, required: true }
         ],
-        exception: [
-            {
-                debut: Date,
-                fin: Date
-            }
-        ],
-        disponibilites: [
-            {
-                debut: Date,
-                fin: Date
-            }
-        ],
+        exception: [Date],
         mois: { type: String, required: true }
     },
     service: [

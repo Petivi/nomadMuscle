@@ -5,7 +5,7 @@ export const ttJour = [
     { libelle: 'Jeudi', numero: 4 },
     { libelle: 'Vendredi', numero: 5 },
     { libelle: 'Samedi', numero: 6 },
-    { libelle: 'Dimanche', numero: 0 },
+    { libelle: 'Dimanche', numero: 7 },
 ];
 export const ttMois: any[] = [
     { libelle: 'Janvier', numero: 0, max: 31 },

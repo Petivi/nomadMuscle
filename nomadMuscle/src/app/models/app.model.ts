@@ -90,7 +90,6 @@ export class ImageSnippet {
 }
 
 export class JourCalendar {
-    libelle: string;
     optionDisplayed: boolean;
     eventDisplayed: boolean;
     moisCourant: number;

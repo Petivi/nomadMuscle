@@ -1,19 +1,19 @@
-<div class="calendar" *ngIf="ttAnnee.length > 200">
-    <div class="content" *ngIf="!selectedJour">
-        <div class="row mb-3">
-            <div class="col-md-1">Annee</div>
-            <div class="col-md-2 text-left">
-                <select [(ngModel)]="selectedYear" (change)="setMonth()">
-                    <option [value]="annee" *ngFor="let annee of ttAnnee">{{annee}}</option>
-                </select>
-            </div>
-            <div class="col-md-1">Mois</div>
-            <div class="col-md-2 text-left">
-                <select [(ngModel)]="selectedMois" (change)="setMonth()">
-                    <option [value]="mois.numero" *ngFor="let mois of ttMois">{{mois.libelle}}</option>
-                </select>
-            </div>
+<div class="calendar" *ngIf="ttAnnee.length > 200 && !selectedJour">
+    <div class="row mb-3">
+        <div class="col-md-1">Annee</div>
+        <div class="col">
+            <select [(ngModel)]="selectedYear" (change)="setMonth()">
+                <option [value]="annee" *ngFor="let annee of ttAnnee">{{annee}}</option>
+            </select>
         </div>
+        <div class="col-md-1">Mois</div>
+        <div class="col">
+            <select [(ngModel)]="selectedMois" (change)="setMonth()">
+                <option [value]="mois.numero" *ngFor="let mois of ttMois">{{mois.libelle}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="content">
         <div class="row">
             <div class="col jour" *ngFor="let j of ttJourDeLaSemaine">{{j.libelle}}</div>
         </div>
@@ -21,7 +21,7 @@
             <ng-container *ngFor="let jour of ttJour">
                 <div class="col jour" (mouseenter)="showJourOption(jour, 'enter')"
                     (mouseleave)="showJourOption(jour, 'leave')"
-                    [ngClass]="{ 'jourDisabled': !jour.moisCourant, 'jourSelectable': jour.moisCourant && typeUser === 'bailleur' }">
+                    [ngClass]="{ 'jourDisabled': !jour.moisCourant, 'jourSelectable': jour.moisCourant }">
                     <div class="row">
                         <div class="col">
                             {{jour.numero}}
@@ -30,8 +30,7 @@
                     <ng-container *ngIf="jour.ttEvent">
                         <ng-container *ngFor="let event of jour.ttEvent">
                             <div class="row mb-1" *ngIf="checkNbEvent(jour, event)">
-                                <div class="evennement" (click)="showJour(jour)"
-                                    [ngClass]="{ 'clickable': typeUser === 'locataire'}">
+                                <div class="evennement">
                                     {{event.libelle}} de {{(getCustomHour(event.debut))}} à
                                     {{(getCustomHour(event.fin))}}
                                 </div>
@@ -90,55 +89,10 @@
                 </div>
             </ng-container>
         </div>
-        <div class="row mt-2">
-            <div class="col text-left">
-                <button (click)="changeMonth('prev')">Précédent</button>
-            </div>
-            <div class="col text-right">
-                <button (click)="changeMonth('next')">Suivant</button>
-            </div>
-        </div>
     </div>
-    <div class="container" *ngIf="selectedJour">
-        <div class="row">
-            <div class="col">
-                <button (click)="(selectedJour = null)">Retour</button>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                Date: {{selectedJour.libelle + ' ' + selectedJour.numero}}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <input type="date" datetime="yyyy-MM-dd:mm:ss" id="start" name="trip-start"
-                    [(ngModel)]="selectedTransaction.date" min="{{salle.salle.disponibilite.dateDebut}}"
-                    max="{{salle.salle.disponibilite.dateFin}}">
-            </div>
-            <div class="col">
-                <div class="row">
-                    <div class="col">debut</div>
-                    <div class="col">
-                        <select [(ngModel)]="selectedTransaction.debut">
-                            <option *ngFor="let t of times" [value]="t.value">{{t.display}}</option>
-                            {{times}}
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">fin</div>
-                    <div class="col">
-                        <select [(ngModel)]="selectedTransaction.fin">
-                            <option *ngFor="let t of times" [value]="t.value">{{t.display}}</option>
-                            {{times}}
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <button (click)="louerSalle(salle)">Louer cette salle</button>
-            </div>
-        </div>
+</div>
+<div class="container" *ngIf="selectedJour">
+    <div class="row">
+        <div class="col">Detail</div>
     </div>
 </div>

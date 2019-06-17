@@ -1,6 +1,5 @@
 const Salle = require('./../models/salle');
 const Bailleur = require('./../models/bailleur');
-const Transaction = require('./../models/transaction');
 const { authenticate } = require('./../middleware/authenticate');
 const moment = require('moment');
 
@@ -22,18 +21,16 @@ module.exports = (app) => {
             Salle.find({}, { "__v": 0 })
                 .then(salles => {
                     if (salles.length != 0) {
-                        let ttPromiseBailleur = [];
-                        let ttPromiseTransaction = [];
+                        let ttPromise = [];
                         salles.forEach((s) => {
                             if (s.disponibilite && s.disponibilite.exception && s.disponibilite.exception.length > 0) {
                                 for (let i = 0; i < s.disponibilite.exception.length; i++) {
                                     s.disponibilite.exception[i] = moment(s.disponibilite.exception[i]).format('DD/MM/YYYY');
                                 }
                             }
-                            ttPromiseTransaction.push(Transaction.find({ idSalle: s._id, annulee: false }, { __v: 0 }));
-                            ttPromiseBailleur.push(Bailleur.find({ _id: s.idBailleur, pieceValidated: true }, { password: 0, token: 0, __v: 0, pieceId: 0 }));
+                            ttPromise.push(Bailleur.find({ _id: s.idBailleur, pieceValidated: true }, { "password": 0, "token": 0, "__v": 0, "pieceId": 0 }));
                         });
-                        Promise.all(ttPromiseBailleur).then(result => {
+                        Promise.all(ttPromise).then(result => {
                             for (let i = 0; i < salles.length; i++) {
                                 let value = {
                                     salle: salles[i],
@@ -41,12 +38,7 @@ module.exports = (app) => {
                                 }
                                 tabFinal.push(value);
                             }
-                            Promise.all(ttPromiseTransaction).then(ttTransaction => {
-                                for (let i = 0; i < tabFinal.length; i++) {
-                                    tabFinal[i].ttTransaction = ttTransaction.filter(t => t[0].idSalle == tabFinal[i].salle._id);
-                                }
-                                res.send({ response: { salles: tabFinal } });
-                            });
+                            res.send({ response: { salles: tabFinal } });
                         });
                     } else {
                         res.send({ response: 'NO_ITEMS_FOUND' });
