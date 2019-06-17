@@ -64,7 +64,6 @@ export class FindRoomComponent implements OnInit {
 
 	louerSalle(salle) {
 		console.log(salle)
-		// parsing des values de string à number
 		salle.transaction.debut = +salle.transaction.debut;
 		salle.transaction.fin = +salle.transaction.fin;
 		let valid = true;
