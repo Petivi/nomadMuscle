@@ -64,37 +64,36 @@
                 <div class="row">
                     <label class="col">Location</label>
                 </div>
-                <!-- <button (click)="showCalendar(salle)">Afficher le calendrier</button> -->
-                <div class="row">
-                    <div class="col">
-                        <input type="date" datetime="yyyy-MM-dd:mm:ss" id="start" name="trip-start"
-                            [(ngModel)]="salle.transaction.date" min="{{salle.salle.disponibilite.dateDebut}}"
-                            max="{{salle.salle.disponibilite.dateFin}}">
-                    </div>
-                    <div class="col">
-                        <div class="row">
-                            <div class="col">debut</div>
-                            <div class="col">
-                                <select [(ngModel)]="salle.transaction.debut">
-                                    <option *ngFor="let t of times" [value]="t.value">{{t.display}}</option>
-                                    {{times}}
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">fin</div>
-                            <div class="col">
-                                <select [(ngModel)]="salle.transaction.fin">
-                                    <option *ngFor="let t of times" [value]="t.value">{{t.display}}</option>
-                                    {{times}}
-                                </select>
-                            </div>
+                <button (click)="showCalendar(salle)">Afficher le calendrier</button>
+                <!--<div class="row">
+                <div class="col">
+                    <input type="date" datetime="yyyy-MM-dd:mm:ss" id="start" name="trip-start" [(ngModel)]="salle.transaction.date"
+                        min="{{salle.salle.disponibilite.dateDebut}}" max="{{salle.salle.disponibilite.dateFin}}">
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <div class="col">debut</div>
+                        <div class="col">
+                            <select [(ngModel)]="salle.transaction.debut">
+                                <option *ngFor="let t of times" [value]="t.value">{{t.display}}</option>
+                                {{times}}
+                            </select>
                         </div>
                     </div>
-                    <div class="col">
-                        <button (click)="louerSalle(salle)">Louer cette salle</button>
+                    <div class="row">
+                        <div class="col">fin</div>
+                        <div class="col">
+                            <select [(ngModel)]="salle.transaction.fin">
+                                <option *ngFor="let t of times" [value]="t.value">{{t.display}}</option>
+                                {{times}}
+                            </select>
+                        </div>
                     </div>
                 </div>
+                <div class="col">
+                    <button (click)="louerSalle(salle)">Louer cette salle</button>
+                </div>
+            </div> -->
                 <ng-container *ngIf="salle.ttError && salle.ttError.length > 0">
                     <div class="row alert alert-danger" *ngFor="let err of salle.ttError">
                         <div class="col">
@@ -106,7 +105,7 @@
         </div>
     </ng-container>
 </div>
-<!-- <ng-container *ngIf="selectedSalle">
+<ng-container *ngIf="selectedSalle">
     <div class="container" style="max-width: 1772px;">
         <div class="row">
             <div class="col">
@@ -115,4 +114,4 @@
         </div>
     </div>
     <app-calendar [salle]="selectedSalle"></app-calendar>
-</ng-container> -->
+</ng-container>

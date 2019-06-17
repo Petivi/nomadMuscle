@@ -43,8 +43,7 @@ module.exports = (app) => {
                             }
                             Promise.all(ttPromiseTransaction).then(ttTransaction => {
                                 for (let i = 0; i < tabFinal.length; i++) {
-                                    ttTransaction = ttTransaction[0];
-                                    tabFinal[i].ttTransaction = ttTransaction.filter(t => t.idSalle == tabFinal[i].salle._id);
+                                    tabFinal[i].ttTransaction = ttTransaction.filter(t => t[0].idSalle == tabFinal[i].salle._id);
                                 }
                                 res.send({ response: { salles: tabFinal } });
                             });

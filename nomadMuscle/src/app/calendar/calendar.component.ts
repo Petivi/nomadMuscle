@@ -1,10 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import * as globals from '../../assets/data/globals';
-import * as moment from 'moment';
 
 import { AppService } from '../app.service';
 
-import { JourCalendar, Evennement, Transaction, SalleComplete } from '../models/app.model';
+import { JourCalendar, Evennement, Transaction } from '../models/app.model';
 
 @Component({
 	selector: 'app-calendar',
@@ -13,9 +12,8 @@ import { JourCalendar, Evennement, Transaction, SalleComplete } from '../models/
 })
 
 export class CalendarComponent implements OnInit {
-	@Input() salle: SalleComplete;
+	@Input() salle: any;
 	selectedTransaction: Transaction;
-	ttTransactionDuJour: Transaction[] = [];
 	typeUser: string;
 	selectedYear: number = new Date().getFullYear();
 	selectedMois: number = new Date().getMonth();
@@ -159,21 +157,10 @@ export class CalendarComponent implements OnInit {
 		return jour.ttEvent.findIndex(e => e === event) < 2;
 	}
 
-	showJour(jour: JourCalendar = null) {
-		if (jour) {
-			let dateJour = this.selectedYear + '-' + (this.selectedMois + 1).toString().padStart(2, '0') + '-' + jour.numero.toString().padStart(2, '0');
-			this.ttTransactionDuJour = [];
-			console.log(dateJour)
-			this.salle.ttTransaction.forEach(t => {
-				let dateTrans = moment(t.date.toString().slice(0, 10)).format('YYYY-MM-DD');
-				console.log(dateTrans)
-				if (dateTrans === dateJour) {
-					this.ttTransactionDuJour.push(t)
-				}
-			})
-			this.selectedJour = jour;
-			this.selectedTransaction = new Transaction({});
-		}
+	showJour(jour = null) {
+		console.log(jour)
+		this.selectedJour = jour;
+		this.selectedTransaction = new Transaction({});
 	}
 
 	changeMonth(type: string) {

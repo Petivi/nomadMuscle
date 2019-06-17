@@ -1,34 +1,3 @@
-
-
-export class SalleComplete {
-    bailleur: Bailleur;
-    salle: Salle;
-    ttTransaction: Transaction[];
-    constructor(info: any) {
-        for (let k in info) {
-            if (info.hasOwnProperty(k)) {
-                this[k] = info[k];
-            }
-        }
-    }
-}
-
-export class Bailleur {
-    dateNaissance: string;
-    mail: string;
-    nom: string;
-    pieceValidated: boolean
-    prenom: string;
-    solde: number
-    _id: string;
-    constructor(info: any) {
-        for (let k in info) {
-            if (info.hasOwnProperty(k)) {
-                this[k] = info[k];
-            }
-        }
-    }
-}
 export class User {
     prenom: string;
     nom: string;
@@ -68,21 +37,8 @@ export class Salle {
 }
 
 export class Disponibilite {
-    disponibilites: Dispo[];
     semaine: Jour[];
     exception: Date[];
-    constructor(info: any) {
-        for (let k in info) {
-            if (info.hasOwnProperty(k)) {
-                this[k] = info[k];
-            }
-        }
-    }
-}
-
-export class Dispo {
-    debut: Date;
-    fin: Date;
     constructor(info: any) {
         for (let k in info) {
             if (info.hasOwnProperty(k)) {
@@ -137,23 +93,9 @@ export class JourCalendar {
     libelle: string;
     optionDisplayed: boolean;
     eventDisplayed: boolean;
-    moisCourant: boolean;
-    mois: Mois
+    moisCourant: number;
     numero: number;
     ttEvent: Evennement[];
-    constructor(info: any) {
-        for (let k in info) {
-            if (info.hasOwnProperty(k)) {
-                this[k] = info[k];
-            }
-        }
-    }
-}
-
-export class Mois {
-    libelle: string;
-    numero: number;
-    max: number;
     constructor(info: any) {
         for (let k in info) {
             if (info.hasOwnProperty(k)) {
