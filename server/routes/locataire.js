@@ -2,8 +2,6 @@ const Locataire = require('./../models/locataire');
 const { authenticate } = require('./../middleware/authenticate');
 const nodemailer = require("nodemailer");
 const fonctions = require('../utils/fonction');
-const fs = require('fs');
-const Busboy = require('busboy');
 
 
 module.exports = (app) => {
@@ -50,80 +48,5 @@ module.exports = (app) => {
       res.send({error:"ERR_TYPE_INVALID"});
     }
   });
-
-
-
-  app.post('/locataires/pieceId', authenticate, (req, res) => {
-      let newFileName;
-      let user_id = req.body.user_id;
-      if (user_id) {
-          var busboy = new Busboy({ headers: req.headers });
-
-          busboy.on('file', function (fieldname, file, filename, encoding) {
-              let ext = filename.split('.');
-              ext = ext[ext.length - 1];
-              newFileName = user_id + '.' + ext;
-              let dirName = __dirname.split('\\');
-              dirName.pop();
-              dirName = dirName.join('\\')
-              var path = dirName + '/public/locataires/'+user_id;
-              if(fs.existsSync(path)){
-                file.pipe(fs.createWriteStream(path+'/pieceId.'+ext));
-              }else {
-                fs.mkdir(path, { recursive: true }, (err) => {
-                  if (err) throw err;
-                  file.pipe(fs.createWriteStream(path+'/pieceId.'+ext));
-                });
-              }
-          });
-
-          busboy.on('finish', function () {
-              Locataire.findOneAndUpdate({ _id: req.body.user_id }, { pieceId: newFileName }).then(() => {
-                  res.send({ response: true });
-              })
-          });
-
-          req.pipe(busboy);
-      } else {
-          res.send({ error: "ERR_NO_USER_ID" });
-      }
-  });
-
-  app.post('/locataires/certificat', authenticate, (req, res) => {
-      let newFileName;
-      let user_id = req.body.user_id;
-      if (user_id) {
-          var busboy = new Busboy({ headers: req.headers });
-
-          busboy.on('file', function (fieldname, file, filename, encoding) {
-              let ext = filename.split('.');
-              ext = ext[ext.length - 1];
-              newFileName = user_id + '.' + ext;
-              let dirName = __dirname.split('\\');
-              dirName.pop();
-              dirName = dirName.join('\\')
-              var path = dirName + '/public/locataires/'+user_id;
-              if(fs.existsSync(path)){
-                file.pipe(fs.createWriteStream(path+'/certificat.'+ext));
-              }else {
-                fs.mkdir(path, { recursive: true }, (err) => {
-                  if (err) throw err;
-                  file.pipe(fs.createWriteStream(path+'/certificat.'+ext));
-                });
-              }
-          });
-
-          busboy.on('finish', function () {
-              Locataire.findOneAndUpdate({ _id: req.body.user_id }, { pieceId: newFileName }).then(() => {
-                  res.send({ response: true });
-              })
-          });
-
-          req.pipe(busboy);
-      } else {
-          res.send({ error: "ERR_NO_USER_ID" });
-      }
-  });
-
 
 }

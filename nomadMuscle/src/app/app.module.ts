@@ -3,8 +3,6 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { AgmCoreModule } from '@agm/core';
-
 
 import { TestService } from './test.service';
 
@@ -19,8 +17,6 @@ import { MyRoomComponent } from './my-room/my-room.component';
 import { FindRoomComponent } from './find-room/find-room.component';
 import { MyTransactionComponent } from './my-transaction/my-transaction.component';
 import { MyAccountComponent } from './my-account/my-account.component';
-import { MapsComponent } from './maps/maps.component';
-import { CalendarComponent } from './calendar/calendar.component';
 
 
 const appRoutes: Routes = [
@@ -47,17 +43,12 @@ const appRoutes: Routes = [
     MyRoomComponent,
     FindRoomComponent,
     MyTransactionComponent,
-    MyAccountComponent,
-    MapsComponent,
-    CalendarComponent
+    MyAccountComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule, 
     RouterModule.forRoot(appRoutes),
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAuAt3svvuXjouj4ERbeYuuMrCOur0PBZs'
-    }),
     FormsModule
   ],
   providers: [TestService],
