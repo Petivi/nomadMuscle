@@ -46,7 +46,7 @@ export class FindRoomComponent implements OnInit {
 			this.loading = false;
 			this.ttSalle = salles.response;
 			console.log(this.ttSalle)
-			this.ttSalle.forEach(s => {
+			this.ttSalle.salles.forEach(s => {
 				s.salle.disponibilite.semaine.forEach(s => {
 					s.heureDebut = this._appService.getCustomHour(s.debut);
 					s.heureFin = this._appService.getCustomHour(s.fin);

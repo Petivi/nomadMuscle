@@ -2,7 +2,7 @@
     <img *ngIf="loading" src="../../assets/img/loading.gif" alt="chargement">
 </div>
 <div class="container" *ngIf="!loading">
-    <div class="row mb-4" *ngFor="let salle of ttSalle" style="border: 1px solid black; padding: 5px;">
+    <div class="row mb-4" *ngFor="let salle of ttSalle.salles" style="border: 1px solid black; padding: 5px;">
         <div class="col">
             <div class="row">
                 <label class="col">Nom du bailleur</label>
