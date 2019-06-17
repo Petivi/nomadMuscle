@@ -1,24 +1,3 @@
-<div class="calendar" *ngIf="ttAnnee.length > 200">
-    <div class="row mb-3">
-        <div class="col-md-1">Annee</div>
-        <div class="col">
-            <select [(ngModel)]="selectedYear" (change)="setMonth()">
-                <option [value]="annee" *ngFor="let annee of ttAnnee">{{annee}}</option>
-            </select>
-        </div>
-        <div class="col-md-1">Mois</div>
-        <div class="col">
-            <select [(ngModel)]="selectedMois" (change)="setMonth()">
-                <option [value]="mois.numero" *ngFor="let mois of ttMois">{{mois.libelle}}</option>
-            </select>
-        </div>
-    </div>
-    <div class="content">
-        <div class="row">
-            <div class="col jour" *ngFor="let j of ttJourDeLaSemaine">{{j.libelle}}</div>
-        </div>
-        <div class="row semaine" *ngFor="let ttJour of ttSemaine">
-            <div class="col jour" *ngFor="let jour of ttJour">{{jour}}</div>
-        </div>
-    </div>
-</div>
+<p>
+  calendar works!
+</p>

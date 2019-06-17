@@ -5,7 +5,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 
-import { FilterPipe } from './common/pipe/string.pipe';
 
 import { TestService } from './test.service';
 
@@ -34,7 +33,6 @@ const appRoutes: Routes = [
   {path: 'trouver-une-salle', component: FindRoomComponent},
   {path: 'transactions', component: MyTransactionComponent},
   {path: 'mon-compte', component: MyAccountComponent},
-  {path: 'calendar', component: CalendarComponent},
 ]
 
 @NgModule({
@@ -51,15 +49,14 @@ const appRoutes: Routes = [
     MyTransactionComponent,
     MyAccountComponent,
     MapsComponent,
-    CalendarComponent,
-    FilterPipe
+    CalendarComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule, 
     RouterModule.forRoot(appRoutes),
     AgmCoreModule.forRoot({
-      apiKey: ''
+      apiKey: 'AIzaSyAuAt3svvuXjouj4ERbeYuuMrCOur0PBZs'
     }),
     FormsModule
   ],
